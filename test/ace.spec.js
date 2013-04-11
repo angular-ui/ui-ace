@@ -3,12 +3,14 @@ describe('uiAce', function () {
 	'use strict';
 
 	// declare these up here to be global to all tests
-	var scope, $compile, uiConfig = angular.module('ui.config');
+	var scope, $compile, uiConfig;
 
-	beforeEach(module('ui.directives'));
-	beforeEach(function () {
-		uiConfig.value('ui.config', {ace: {showGutter: false}});
-	});
+	beforeEach(module('ui.ace'));
+  beforeEach(inject(function (uiAceConfig) {
+    uiConfig = uiAceConfig;
+    uiConfig.ace = {showGutter: false};
+
+  }));
 
 	// inject in angular constructs. Injector knows about leading/trailing underscores and does the right thing
 	// otherwise, you would need to inject these into each test
@@ -18,7 +20,7 @@ describe('uiAce', function () {
 	}));
 
 	afterEach(function () {
-		uiConfig.value('ui.config', {}); // cleanup
+    uiConfig = {};
 	});
 
 	describe('behavior', function () {
@@ -101,7 +103,7 @@ describe('uiAce', function () {
 			it('should update the IDE with an empty string', function () {
 				$compile('<div ui-ace ng-model="foo">')(scope);
 				scope.$apply();
-				expect(scope.foo).toBeUndefined()
+				expect(scope.foo).toBeUndefined();
 				expect(_ace.getSession().getValue()).toBe('');
 				scope.$apply('foo = "bar"');
 				expect(scope.foo).toBe('bar');
