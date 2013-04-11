@@ -1,15 +1,15 @@
 {
   "name": "angular-ui-ace",
-  "version": "0.0.1",
-  "description": "This directive allows you to add an ace editor to your form elements.",
+  "version": "0.0.2",
+  "description": "This directive allows you to add ACE editor elements.",
   "author": "https://github.com/angular-ui/ui-ace/graphs/contributors",
   "license": "MIT",
   "homepage": "http://angular-ui.github.com",
-  "main": "src/ace.js",
+  "main": "./ui-ace.js",
   "dependencies": {},
   "devDependencies": {
     "grunt": "~0.4.1",
-    "grunt-testacular": "~0.3.0",
+    "grunt-karma": "~0.4.x",
     "grunt-contrib-jshint": "~0.2.0"
   },
   "scripts": {},
