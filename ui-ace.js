@@ -22,9 +22,9 @@ angular.module('ui.ace', [])
 
         /**
          * Fix of http://ace.ajax.org/#nav=embedding
-         * to have ace as a block (no full screen)
+         * to have ace as a block
          * Example :
-         *  .ace_editor_wrapper { display : block; height: 200px}
+         *  .ace_editor_wrapper { position : relative; height: 200px}
          */
         elm.wrap('<div class="ace_editor_wrapper" />');
 
