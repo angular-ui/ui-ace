@@ -12,7 +12,7 @@ files = [
   JASMINE_ADAPTER,
   'components/angular/angular.js',
   'components/angular-mocks/angular-mocks.js',
-  'components/ace/build/src/ace.js',
+  'components/ace-builds/src-min-noconflict/ace.js',
   'ui-ace.js',
   'test/*.spec.js'
 ];
