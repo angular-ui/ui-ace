@@ -95,6 +95,12 @@ angular.module('ui.ace', [])
 
         // EVENTS
         session.on('change', onChange(opts.onChange));
+
+        // Direct instance access
+        if (attrs.scopeInstance && "" !== attrs.scopeInstance) {
+          scope[attrs.scopeInstance] = acee;
+        }
+
       }
     };
   }]);
