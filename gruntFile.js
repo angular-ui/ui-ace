@@ -7,7 +7,7 @@ module.exports = function (grunt) {
   grunt.registerTask('default', ['jshint', 'karma']);
 
   var testConfig = function(configFile, customOptions) {
-    var options = { configFile: configFile, keepalive: false };
+    var options = { configFile: configFile, singleRun: true};
     var travisOptions = process.env.TRAVIS && { browsers: ['Firefox'], reporters: ['dots'] };
     return grunt.util._.extend(options, customOptions, travisOptions);
   };
