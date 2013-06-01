@@ -18,6 +18,7 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
+    dist : 'components/angular-ui-docs',
     pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: ['/**',
@@ -54,16 +55,16 @@ module.exports = function (grunt) {
       options: {banner: '<%= meta.banner %>'},
       build: {
         files: {
-          'out/build/<%= meta.view.repoName %>.min.js': ['<%= meta.view.repoName %>.js']
+          '<%= dist %>/build/<%= meta.view.repoName %>.min.js': ['<%= meta.view.repoName %>.js']
         }
       }
     },
     copy: {
       main: {
         files: [
-          {src: ['<%= meta.view.repoName %>.js'], dest: 'out/build/<%= meta.view.repoName %>.js', filter: 'isFile'},
-          {src: ['demo/demo.html'], dest: 'out/demos.html', filter: 'isFile'},
-          {src: ['components/ace-builds/src-min-noconflict/ace.js'], dest: 'out/components/ace-builds/src-min-noconflict/ace.js', filter: 'isFile'}
+          {src: ['<%= meta.view.repoName %>.js'], dest: '<%= dist %>/build/<%= meta.view.repoName %>.js', filter: 'isFile'},
+          {src: ['demo/demo.html'], dest: '<%= dist %>/demos.html', filter: 'isFile'},
+          {src: ['components/ace-builds/src-min-noconflict/ace.js'], dest: '<%= dist %>/components/ace-builds/src-min-noconflict/ace.js', filter: 'isFile'}
         ]
       },
       template : {
@@ -71,7 +72,7 @@ module.exports = function (grunt) {
           return grunt.template.process(content);
         }},
         files: [
-          {src: ['out/.tmpl/index.tmpl'], dest: 'out/index.html'}
+          {src: ['<%= dist %>/.tmpl/index.tmpl'], dest: '<%= dist %>/index.html'}
         ]
       }
     }
