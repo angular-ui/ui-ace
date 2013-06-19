@@ -32,13 +32,13 @@ describe('uiAce', function () {
 			expect(compile).not.toThrow();
 		});
 
-		
+
 		it('should watch the uiAce attribute', function () {
 			spyOn(scope, '$watch');
 			$compile('<div ui-ace ng-model="foo">')(scope);
 			expect(scope.$watch).toHaveBeenCalled();
 		});
-		
+
 	});
 
 	describe('instance', function () {
@@ -83,6 +83,19 @@ describe('uiAce', function () {
 				});
 			});
 		});
+
+    describe('readOnly', function () {
+      it('should read only option true', function () {
+        $compile('<div ui-ace="{readOnly:true}">')(scope);
+        expect(_ace).toBeDefined();
+        expect(_ace.getReadOnly()).toBeTruthy();
+      });
+      it('should read only option false', function () {
+        $compile('<div ui-ace>')(scope);
+        expect(_ace).toBeDefined();
+        expect(_ace.getReadOnly()).toBeFalsy();
+      });
+    });
 
 		describe('when the model changes', function () {
 			it('should update the IDE', function () {
@@ -151,5 +164,5 @@ describe('uiAce', function () {
 		});
 	});
 
-	
+
 });
