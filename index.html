@@ -6,118 +6,153 @@
     <title>Angular UI ~ UI Ace Doc</title>
 
     <!-- Le css -->
-    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/cssLoading.css">
-    <link rel="stylesheet" href="assets/css/prettify.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="assets/css/prettify.css"/>
+
+
 
 </head>
 
 <body>
 
-<!-- Le navbar
-================================================== -->
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <div class="dropdown pull-left">
-                <a class="brand dropdown-toggle" role="button" data-toggle="dropdown" href="#">
-                    UI Ace
-                    <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
-                    <li><a href="https://github.com/angular-ui/"><strong>Related Projects:</strong></a></li>
-                    <li class="divider"></li>
-                    <li><a href="http://angular-ui.github.io/">AngularUI</a></li>
-                    <li><a href="http://angular-ui.github.io/bootstrap/">UI Bootstrap</a></li>
-                    <li><a href="http://angular-ui.github.io/ng-grid/">Grid</a></li>
-                    <li><a href="https://github.com/angular-ui/AngularJs.tmbundle">AngularJS.tmbundle</a></li>
-                    <li><a href="http://angular-ui.github.io/ui-router/sample/">Router <span class="label label-success">New!</span></a></li>
-                </ul>
-            </div>
-            <div class="nav-collapse pull-right">
-                <ul class="nav">
-                    <li class="dropdown" ng-show="!isLoading"  style="display: none">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Modules <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <li ng-repeat="s in sections"><a href="#{{s.id}}"> {{s.name}} </a></li>
-                        </ul>
-                    </li>
-
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<div style="margin: 32px;"></div>
-
-<!-- Le header
-================================================== -->
-<header class="hero-unit" id="overview">
-    <div class="container">
-
-        <h1>UI Ace</h1>
-
-        <p>This directive allows you to add ACE editor elements.</p>
-
-        <p class="btn-group">
-            <a class="btn" href="https://github.com/angular-ui/ui-ace"><i class="icon-github"></i> Code on Github</a>
-            <a class="btn btn-primary" href="https://github.com/angular-ui/ui-ace/tree/gh-pages/build">
-                <i class="icon-download-alt icon-white"></i> Download <small>(0.0.3)</small>
-            </a>
-        </p>
-    </div>
-    <div class="bs-docs-social">
-        <div class="container">
-            <ul class="bs-docs-social-buttons">
-                <li>
-                    <iframe src="http://ghbtns.com/github-btn.html?user=angular-ui&amp;repo=ui-ace&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
-                </li>
-                <li>
-                    <iframe src="http://ghbtns.com/github-btn.html?user=angular-ui&amp;repo=ui-ace&amp;type=fork&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
-                </li>
-                <li>
-                    <!-- Place this tag where you want the +1 button to render. -->
-                    <div class="g-plusone" data-size="medium"></div>
-
-                    <!-- Place this tag after the last +1 button tag. -->
-                    <script type="text/javascript">
-                        (function () {
-                            var po = document.createElement('script');
-                            po.type = 'text/javascript';
-                            po.async = true;
-                            po.src = 'https://apis.google.com/js/plusone.js';
-                            var s = document.getElementsByTagName('script')[0];
-                            s.parentNode.insertBefore(po, s);
-                        })();
-                    </script>
-                </li>
-            </ul>
-        </div>
-    </div>
-</header>
-
-<!-- Le main
-================================================== -->
-<div class="container main ng-cloak" ng-controller="MainCtrl" ng-cloak>
-    <div ng-include src="'demos.html'" onload="makeNav()"></div>
-</div>
-
-<!-- Le loading
-================================================== -->
-
-<div class="loadingAnimation" ng-show="isLoading">
-  <div class="bowl_ringG">
-    <div class="ball_holderG">
-      <div class="ballG">
+  <!-- Le navbar
+  ================================================== -->
+  <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+          <div class="container">
+              <div class="dropdown pull-left">
+                  <a class="brand dropdown-toggle" role="button" data-toggle="dropdown" href="#">
+                      UI Ace
+                      <b class="caret"></b>
+                  </a>
+                  <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+                      <li><a href="https://github.com/angular-ui/"><strong>Related Projects:</strong></a></li>
+                      <li class="divider"></li>
+                      <li><a href="http://angular-ui.github.io/">AngularUI</a></li>
+                      <li><a href="http://angular-ui.github.io/bootstrap/">UI Bootstrap</a></li>
+                      <li><a href="http://angular-ui.github.io/ng-grid/">Grid</a></li>
+                      <li><a href="https://github.com/angular-ui/AngularJs.tmbundle">AngularJS.tmbundle</a></li>
+                      <li><a href="http://angular-ui.github.io/ui-router/sample/">Router <span class="label label-success">New!</span></a></li>
+                  </ul>
+              </div>
+          </div>
       </div>
-    </div>
   </div>
-</div>
+  <div style="margin: 32px;"></div>
 
-<!-- Le javascript
-================================================== -->
-<script data-main="core/main.js" src="assets/vendor/require.min.js"></script>
+  <!-- Le header
+  ================================================== -->
+  <header class="hero-unit" id="overview">
+      <div class="container">
+
+          <h1>UI Ace</h1>
+
+          <p>This directive allows you to add ACE editor elements.</p>
+
+          <p class="btn-group">
+              <a class="btn" href="https://github.com/angular-ui/ui-ace"><i class="icon-github"></i> Code on Github</a>
+              <a class="btn btn-primary" href="https://github.com/angular-ui/ui-ace/tree/gh-pages/build">
+                  <i class="icon-download-alt icon-white"></i> Download <small>(0.0.3)</small>
+              </a>
+          </p>
+      </div>
+      <div class="bs-docs-social">
+          <div class="container">
+              <ul class="bs-docs-social-buttons">
+                  <li>
+                      <iframe src="http://ghbtns.com/github-btn.html?user=angular-ui&amp;repo=ui-ace&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="110" height="20"></iframe>
+                  </li>
+                  <li>
+                      <iframe src="http://ghbtns.com/github-btn.html?user=angular-ui&amp;repo=ui-ace&amp;type=fork&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="95" height="20"></iframe>
+                  </li>
+                  <li>
+                      <!-- Place this tag where you want the +1 button to render. -->
+                      <div class="g-plusone" data-size="medium"></div>
+
+                      <!-- Place this tag after the last +1 button tag. -->
+                      <script type="text/javascript">
+                          (function () {
+                              var po = document.createElement('script');
+                              po.type = 'text/javascript';
+                              po.async = true;
+                              po.src = 'https://apis.google.com/js/plusone.js';
+                              var s = document.getElementsByTagName('script')[0];
+                              s.parentNode.insertBefore(po, s);
+                          })();
+                      </script>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </header>
+
+  <!-- Le main
+  ================================================== -->
+  <div class="container">
+
+    <style>
+  .ace_editor_wrapper {
+    position: relative;
+    height: 200px
+  }
+
+  .ace_editor {
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;;
+  }
+</style>
+
+<section id="ace" ng-app='doc.ui-ace' ng-controller="AceCtrl">
+
+  <div ui-ace ng-model="aceModel">Hello</div>
+  <div ui-ace>World</div>
+
+
+  <h3>How?</h3>
+    <pre class="prettyprint">
+    &lt;div ui-ace  ng-model="aceModel"&gt;Hello&lt;/div&gt;
+    &lt;div ui-ace&gt;World&lt;/div&gt;
+
+    &lt;style&gt;
+      .ace_editor_wrapper { position : relative; height: 200px}
+
+      .ace_editor {
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;;
+      }
+    &lt;/style&gt;
+    </pre>
+</section>
+
+  </div>
+
+  <!-- Le javascript
+  ================================================== -->
+
+  <script src="assets/vendor/jquery.min.js"></script>
+  <script src="assets/vendor/bootstrap.min.js"></script>
+
+  <script src="assets/vendor/prettify.js"></script>
+
+  <script src="assets/vendor/angular.min.js"></script>
+  <script src="core/prettifyDirective.js"></script>
+
+  <script src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+  <script src="build/ui-ace.min.js"></script>
+
+  <script>
+    
+angular.module('doc.ui-ace', ['ui.ace', 'prettifyDirective'])
+  .controller('AceCtrl', ['$scope', function ($scope) {
+    $scope.aceModel = "Ace Hello World";
+  }])
+;
+  </script>
 
 </body>
 

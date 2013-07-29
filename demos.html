@@ -11,51 +11,8 @@
     left: 0;;
   }
 </style>
-<script>
 
-  $("#ace").hide();
-  requirejs(
-      {
-        paths: {
-          'ui.ace': "build/ui-ace.min"
-        },
-        shim: {
-          'ui.ace': { deps: ['components/ace-builds/src-min-noconflict/ace.js'] }
-        }
-      },
-      ['ui.ace'],
-      function () {
-
-        angular.module('doc.ui-ace', ['ui.ace', 'prettifyDirective'])
-            .controller('AceCtrl', ['$scope', function ($scope) {
-              $scope.aceModel = "Ace Hello World";
-            }])
-        ;
-        e$ = $("#ace");
-        e$.removeAttr("ng-non-bindable");
-
-        angular.bootstrap(e$[0], ['doc.ui-ace']);
-        e$.show();
-        $("#ace-l").slideUp();
-
-
-      }
-  );
-</script>
-
-<!-- Le loading
-================================================== -->
-
-<div id="ace-l" class="loadingAnimation">
-  <div class="bowl_ringG">
-    <div class="ball_holderG">
-      <div class="ballG">
-      </div>
-    </div>
-  </div>
-</div>
-
-<section id="ace" ng-non-bindable ng-controller="AceCtrl">
+<section id="ace" ng-app='doc.ui-ace' ng-controller="AceCtrl">
 
   <div ui-ace ng-model="aceModel">Hello</div>
   <div ui-ace>World</div>
