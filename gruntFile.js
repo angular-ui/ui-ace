@@ -18,7 +18,8 @@ module.exports = function (grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    dist : 'components/angular-ui-docs',
+    bower: 'bower_components',
+    dist : '<%= bower %>/angular-ui-docs',
     pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: ['/**',
@@ -30,7 +31,13 @@ module.exports = function (grunt) {
         ''].join('\n'),
       view : {
         humaName : "UI Ace",
-        repoName : "ui-ace"
+        repoName : "ui-ace",
+        demoHTML : grunt.file.read("demo/demo.html"),
+        demoJS : grunt.file.read("demo/demo.js"),
+        js : [
+          '<%= bower %>/ace-builds/src-min-noconflict/ace.js',
+          'build/ui-ace.min.js'
+        ]
       }
     },
     karma: {
@@ -64,7 +71,7 @@ module.exports = function (grunt) {
         files: [
           {src: ['<%= meta.view.repoName %>.js'], dest: '<%= dist %>/build/<%= meta.view.repoName %>.js', filter: 'isFile'},
           {src: ['demo/demo.html'], dest: '<%= dist %>/demos.html', filter: 'isFile'},
-          {src: ['components/ace-builds/src-min-noconflict/ace.js'], dest: '<%= dist %>/components/ace-builds/src-min-noconflict/ace.js', filter: 'isFile'}
+          {src: ['<%= bower %>/ace-builds/src-min-noconflict/ace.js'], dest: '<%= dist %>/<%= bower %>/ace-builds/src-min-noconflict/ace.js', filter: 'isFile'}
         ]
       },
       template : {
