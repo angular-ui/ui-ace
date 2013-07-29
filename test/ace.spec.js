@@ -31,19 +31,19 @@ describe('uiAce', function () {
 			}
 			expect(compile).not.toThrow();
 		});
-		
+
 		it('should be wrapped with .ace_editor_wrapper', function () {
 			var element = $compile('<div ui-ace>')(scope);
 			expect(element.parent().hasClass('ace_editor_wrapper')).toBeTruthy();
 		});
 
-		
+
 		it('should watch the uiAce attribute', function () {
 			spyOn(scope, '$watch');
 			$compile('<div ui-ace ng-model="foo">')(scope);
 			expect(scope.$watch).toHaveBeenCalled();
 		});
-		
+
 	});
 
 	describe('instance', function () {
@@ -132,6 +132,8 @@ describe('uiAce', function () {
       it('should access to this instance in the scope', function () {
         $compile('<div ui-ace scope-instance="foo">')(scope);
         expect(scope.foo).toBe(_ace);
+        $compile('<div ui-ace scope-instance="bar.baz.qux">')(scope);
+        expect(scope.bar.baz.qux).toBe(_ace);
       });
     });
 	});
@@ -155,5 +157,5 @@ describe('uiAce', function () {
 		});
 	});
 
-	
+
 });

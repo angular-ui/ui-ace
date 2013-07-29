@@ -96,11 +96,17 @@ angular.module('ui.ace', [])
         // EVENTS
         session.on('change', onChange(opts.onChange));
 
-        // Direct instance access
+        // Allow the editor to be directly accessed via the location in the scope specified by the scope-instance attribute
         if (attrs.scopeInstance && "" !== attrs.scopeInstance) {
-          scope[attrs.scopeInstance] = acee;
+          var parts, last_part, loc, i;
+          parts = attrs.scopeInstance.split(".");
+          last_part = parts.pop();
+          loc = scope;
+          for (i = 0; i < parts.length; i++) {
+            loc = loc[parts[i]] = (loc[parts[i]] || {});
+          }
+          loc[last_part] = acee;
         }
-
       }
     };
   }]);
