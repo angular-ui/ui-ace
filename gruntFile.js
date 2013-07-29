@@ -31,7 +31,13 @@ module.exports = function (grunt) {
         ''].join('\n'),
       view : {
         humaName : "UI Ace",
-        repoName : "ui-ace"
+        repoName : "ui-ace",
+        demoHTML : grunt.file.read("demo/demo.html"),
+        demoJS : grunt.file.read("demo/demo.js"),
+        js : [
+          '<%= bower %>/ace-builds/src-min-noconflict/ace.js',
+          'build/ui-ace.min.js'
+        ]
       }
     },
     karma: {
