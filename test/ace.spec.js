@@ -78,8 +78,20 @@ describe('uiAce', function () {
 					expect(_ace.renderer.getShowGutter()).toBeFalsy();
 				});
 			});
-		});
-
+			describe('readOnly', function () {
+              it('should read only option true', function () {
+                $compile('<div ui-ace="{readOnly:true}">')(scope);
+                  expect(_ace).toBeDefined();
+                  expect(_ace.getReadOnly()).toBeTruthy();
+              });
+              it('should read only option false', function () {
+                  $compile('<div ui-ace>')(scope);
+                    expect(_ace).toBeDefined();
+                    expect(_ace.getReadOnly()).toBeFalsy();
+                });
+           });
+        });
+		
 		describe('when the model changes', function () {
 			it('should update the IDE', function () {
 				$compile('<div ui-ace ng-model="foo">')(scope);
