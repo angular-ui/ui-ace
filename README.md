@@ -115,27 +115,28 @@ For more interaction with the Ace instance in the directive, we provide a direct
 Using
 
 ```html
-<div ui-ace scope-instance="foo" ></div>
+<div ui-ace="{ onLoad : aceLoaded }" ></div>
 ```
 
- you will have in `$scope.foo` the [Ace Editor instance](http://ajaxorg.github.io/ace/#nav=api&api=editor)
+the `$scope.aceLoaded` function will be called with the [Ace Editor instance](http://ajaxorg.github.io/ace/#nav=api&api=editor) as first argument
 
 ```javascript
 myAppModule.controller('MyController', [ '$scope', function($scope) {
 
-  // Editor part
-  var _editor = $scope.foo;
-  var _session = _editor.getSession();
-  var _renderer = _editor.renderer;
+  $scope.aceLoaded = function(_editor){
+    // Editor part
+    var _session = _editor.getSession();
+    var _renderer = _editor.renderer;
 
-  // Options
-  _editor.setReadOnly(true);
-  _session.setUndoManager(new UndoManager());
-  _renderer.setHighlightActiveLine(false);
+    // Options
+    _editor.setReadOnly(true);
+    _session.setUndoManager(new ace.UndoManager());
+    _renderer.setShowGutter(false);
 
-  // Events
-  _editor.on("changeSession", function(){ ... });
-  _session.on("change", function(){ ... });
+    // Events
+    _editor.on("changeSession", function(){ ... });
+    _session.on("change", function(){ ... });
+  };
 
 }]);
 ```

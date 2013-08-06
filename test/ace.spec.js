@@ -79,6 +79,7 @@ describe('uiAce', function () {
 					spyOn(scope, "aceLoaded");
 					$compile('<div ui-ace="{onLoad: aceLoaded}">')(scope);
 					expect(scope.aceLoaded).toHaveBeenCalled();
+          expect(scope.aceLoaded).toHaveBeenCalledWith(_ace);
 				});
 			});
 		});
@@ -129,14 +130,6 @@ describe('uiAce', function () {
 				expect(compileWithObject).toThrow();
 			});
 		});
-
-
-    describe(',when the scope-instance is define,', function () {
-      it('should access to this instance in the scope', function () {
-        $compile('<div ui-ace scope-instance="foo">')(scope);
-        expect(scope.foo).toBe(_ace);
-      });
-    });
 	});
 
 	describe('when the model is an object or an array', function () {
