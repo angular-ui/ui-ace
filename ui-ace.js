@@ -20,14 +20,6 @@ angular.module('ui.ace', [])
         options = uiAceConfig.ace || {};
         opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
 
-        /**
-         * Fix of http://ace.ajax.org/#nav=embedding
-         * to have ace as a block
-         * Example :
-         *  .ace_editor_wrapper { position : relative; height: 200px}
-         */
-        elm.wrap('<div class="ace_editor_wrapper" />');
-
         acee = window.ace.edit(elm[0]);
         session = acee.getSession();
 

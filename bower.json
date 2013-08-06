@@ -16,8 +16,8 @@
     "package.json"
   ],
   "dependencies": {
-    "angular": "~1.0.4",
-    "ace-builds": "~1.0.0"
+    "angular": "~1.0.7",
+    "ace-builds": "~1.1.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.x",

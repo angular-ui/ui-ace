@@ -60,15 +60,7 @@ To see something it's better to add some CSS, like
 
 
 ```css
-.ace_editor { top: 0; bottom: 0; right: 0; left: 0; }
-```
-
-Note: the _ui-ace_ directive is wrapped in a `div.ace_editor_wrapper`.
-Thus you can use Ace as a block like so :
-
-
-```css
-.ace_editor_wrapper { position : relative; height: 200px}
+.ace_editor { height: 200px; }
 ```
 
 ## Options

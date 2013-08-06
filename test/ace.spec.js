@@ -31,11 +31,6 @@ describe('uiAce', function () {
 			}
 			expect(compile).not.toThrow();
 		});
-		
-		it('should be wrapped with .ace_editor_wrapper', function () {
-			var element = $compile('<div ui-ace>')(scope);
-			expect(element.parent().hasClass('ace_editor_wrapper')).toBeTruthy();
-		});
 
 		
 		it('should watch the uiAce attribute', function () {
