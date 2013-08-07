@@ -59,6 +59,11 @@ angular.module('ui.ace', [])
           session.setUseWrapMode(opts.useWrapMode);
         }
 
+        // onLoad callback
+        if (angular.isFunction(opts.onLoad)) {
+          opts.onLoad(acee);
+        }
+
         // Basic options
         if (angular.isString(opts.theme)) {
           acee.setTheme("ace/theme/" + opts.theme);

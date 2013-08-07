@@ -74,14 +74,29 @@ Although, _ui-ace_ automatically handles some handy options :
  + _useWrapMode_ : to set whether or not line wrapping is enabled.
  + _theme_ : to set the thme to use.
  + _mode_ : to set the mode to use.
+ + _onLoad_ : callback when the editor has finished loading
 
 ```html
 <div ui-ace="{
   useWrapMode : true,
   showGutter: false,
   theme:'twilight',
-  mode: 'xml'
+  mode: 'xml',
+  onLoad: aceLoaded
 }"></div>
+```
+
+You'll want to define the onLoad callback on your scope:
+
+```javascript
+myAppModule.controller('MyController', [ '$scope', function($scope) {
+
+  $scope.aceLoaded = function(editor) {
+    // Options
+    _editor.setReadOnly(true);
+  };
+
+}]);
 ```
 
 To handle other options you'll have to use a direct access to the Ace created instance (see [below](#ace-instance-direct-access)).
