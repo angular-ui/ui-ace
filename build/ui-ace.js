@@ -72,7 +72,10 @@ angular.module('ui.ace', [])
           session.setMode("ace/mode/" + opts.mode);
         }
 
-
+        attrs.$observe('readonly', function (value) {
+          acee.setReadOnly(value === 'true');
+        });
+        
         // Value Blind
         if (angular.isDefined(ngModel)) {
           ngModel.$formatters.push(function (value) {
