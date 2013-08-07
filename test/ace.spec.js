@@ -86,13 +86,25 @@ describe('uiAce', function () {
 
     describe('readOnly', function () {
       it('should read only option true', function () {
-        $compile('<div ui-ace="{readOnly:true}">')(scope);
-        expect(_ace).toBeDefined();
+        $compile('<div ui-ace readonly="true">')(scope);
+        scope.$apply();
+        expect(_ace.getReadOnly()).toBeTruthy();
+        $compile('<div ui-ace readonly="{{foo}}">')(scope);
+        scope.$apply("foo = true");
         expect(_ace.getReadOnly()).toBeTruthy();
       });
       it('should read only option false', function () {
         $compile('<div ui-ace>')(scope);
-        expect(_ace).toBeDefined();
+        scope.$apply();
+        expect(_ace.getReadOnly()).toBeFalsy();
+        $compile('<div ui-ace readonly="false">')(scope);
+        scope.$apply();
+        expect(_ace.getReadOnly()).toBeFalsy();
+        $compile('<div ui-ace readonly="{{foo}}">')(scope);
+        expect(_ace.getReadOnly()).toBeFalsy();
+        scope.$apply("foo = true");
+        expect(_ace.getReadOnly()).toBeTruthy();
+        scope.$apply("foo = false");
         expect(_ace.getReadOnly()).toBeFalsy();
       });
     });
