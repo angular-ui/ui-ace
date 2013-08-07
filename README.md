@@ -95,6 +95,16 @@ The ng-model will be watched for to set the Ace EditSession value (by [setValue]
 
 _The ui-ace directive stores and expects the model value to be a standard javascript String._
 
+### Can be read only
+
+Simple demo
+```html
+<div ui-ace readonly="true"></div>
+or
+Check me to make Ace readonly: <input type="checkbox" ng-model="checked" ><br/>
+<div ui-ace readonly="{{checked}}"></div>
+```
+
 ### Ace instance direct access
 
 For more interaction with the Ace instance in the directive, we provide a direct access to it.
