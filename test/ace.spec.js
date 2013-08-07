@@ -73,6 +73,14 @@ describe('uiAce', function () {
 					expect(_ace.renderer.getShowGutter()).toBeFalsy();
 				});
 			});
+			describe('onLoad', function() {
+				it("runs the onLoad callback", function() {
+					scope.aceLoaded = function() {};
+					spyOn(scope, "aceLoaded");
+					$compile('<div ui-ace="{onLoad: aceLoaded}">')(scope);
+					expect(scope.aceLoaded).toHaveBeenCalled();
+				});
+			});
 		});
 
 		describe('when the model changes', function () {
