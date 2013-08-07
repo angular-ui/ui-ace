@@ -1,56 +1,36 @@
-# ui-ace directive [![Build Status](https://travis-ci.org/angular-ui/ui-ace.png)](https://travis-ci.org/angular-ui/ui-ace)
+# UI.Ace directive [![Build Status](https://travis-ci.org/angular-ui/ui-ace.png)](https://travis-ci.org/angular-ui/ui-ace)
 
 This directive allows you to add [ACE](http://ajaxorg.github.io/ace/) editor elements.
 
-# Requirements
+## Requirements
 
 - AngularJS
-- [Ace 2.x](https://github.com/ajaxorg/ace/)
+- [Ace 1.x](https://github.com/ajaxorg/ace-builds/)
 
-# Testing
 
-We use karma (the new testacular) and jshint to ensure the quality of the code.  The easiest way to run these checks is to use grunt:
+## Usage
 
-```sh
-npm install -g grunt-cli
-npm install
-bower install
-grunt
-```
-
-The karma task will try to open Firefox as a browser in which to run the tests.  Make sure this is available or change the configuration in `test\karma.conf.js`
-
-# Usage
-
-We use [bower](http://twitter.github.com/bower/) for dependency management.  Add
-
-```json
-dependencies: {
-"angular-ui-ace": "latest"
-}
-```
-
-To your `components.json` file. Then run
+You can get it from [Bower](http://bower.io/)
 
 ```sh
-bower install
+bower install angular-ui-ace
 ```
 
-This will copy the _ui-ace_ files into your `components` folder, along with its dependencies. Load the script files in your application:
+This will copy the UI.Ace files into a `bower_components` folder, along with its dependencies. Load the script files in your application:
 
 ```html
-<script type="text/javascript" src="components/ace-builds/src-min-noconflict/ace.js"></script>
-<script type="text/javascript" src="components/angular/angular.js"></script>
-<script type="text/javascript" src="components/angular-ui-ace/ui-ace.js"></script>
+<script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ace.js"></script>
+<script type="text/javascript" src="bower_components/angular/angular.js"></script>
+<script type="text/javascript" src="bower_components/angular-ui-ace/ui-ace.js"></script>
 ```
 
-Add the Ace module as a dependency to your application module:
+Add the UI.Ace module as a dependency to your application module:
 
 ```javascript
 var myAppModule = angular.module('MyApp', ['ui.ace']);
 ```
 
-Apply the directive to your form elements:
+Finally, add the directive to your html:
 
 ```html
 <div ui-ace></div>
@@ -72,9 +52,10 @@ See the [api doc](http://ajaxorg.github.io/ace/#nav=api) for more.
 Although, _ui-ace_ automatically handles some handy options :
  + _showGutter_ : to show the gutter or not.
  + _useWrapMode_ : to set whether or not line wrapping is enabled.
- + _theme_ : to set the thme to use.
+ + _theme_ : to set the theme to use.
  + _mode_ : to set the mode to use.
- + _onLoad_ : callback when the editor has finished loading
+ + _onLoad_ : callback when the editor has finished loading (see [below](#ace-instance-direct-access)).
+ + _onChange_ : callback when the editor content is changed ().
 
 ```html
 <div ui-ace="{
@@ -82,18 +63,23 @@ Although, _ui-ace_ automatically handles some handy options :
   showGutter: false,
   theme:'twilight',
   mode: 'xml',
-  onLoad: aceLoaded
+  onLoad: aceLoaded,
+  onChange: aceChanged
 }"></div>
 ```
 
-You'll want to define the onLoad callback on your scope:
+You'll want to define the `onLoad` and the `onChange` callback on your scope:
 
 ```javascript
 myAppModule.controller('MyController', [ '$scope', function($scope) {
 
-  $scope.aceLoaded = function(editor) {
+  $scope.aceLoaded = function(_editor) {
     // Options
     _editor.setReadOnly(true);
+  };
+
+  $scope.aceChanged = function(e) {
+    //
   };
 
 }]);
@@ -101,7 +87,7 @@ myAppModule.controller('MyController', [ '$scope', function($scope) {
 
 To handle other options you'll have to use a direct access to the Ace created instance (see [below](#ace-instance-direct-access)).
 
-## Working with ng-model
+### Working with ng-model
 
 The ui-ace directive plays nicely with ng-model.
 
@@ -109,7 +95,7 @@ The ng-model will be watched for to set the Ace EditSession value (by [setValue]
 
 _The ui-ace directive stores and expects the model value to be a standard javascript String._
 
-## Ace instance direct access
+### Ace instance direct access
 
 For more interaction with the Ace instance in the directive, we provide a direct access to it.
 Using
@@ -139,4 +125,60 @@ myAppModule.controller('MyController', [ '$scope', function($scope) {
   };
 
 }]);
+```
+
+## Testing
+
+We use Karma and jshint to ensure the quality of the code.  The easiest way to run these checks is to use grunt:
+
+```sh
+npm install -g grunt-cli
+npm install && bower install
+grunt
+```
+
+The karma task will try to open Firefox and Chrome as browser in which to run the tests.  Make sure this is available or change the configuration in `test\karma.conf.js`
+
+
+### Watch
+
+You can watch files change for your tests with
+
+```sh
+grunt watch
+```
+
+Make sure to have a Karma server available with it.
+
+
+```sh
+grunt server
+```
+
+(you can force a test on this server with `grunt karma:unit:run`)
+
+
+### Local Doc
+
+The documentation is generated by bower and grunt. To build it run :
+
+```sh
+grunt build-doc
+```
+
+And then, launch a built-in web server on the angular-ui-docs bower module
+
+```sh
+cd bower_components/angular-ui-docs/
+php -S localhost:8000
+or
+python -m SimpleHTTPServer
+```
+
+Then check your [http://localhost:8000/](http://localhost:8000/)
+
+**Tips for fast development** : Inline everything
+
+```sh
+grunt build-doc && cd bower_components/angular-ui-docs/  && php -S localhost:8000 && cd ../..
 ```
