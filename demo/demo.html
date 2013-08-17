@@ -1,20 +1,51 @@
-<style>
-  .ace_editor { height: 200px; }
-</style>
+<section id="aces" ng-app="doc.ui-ace">
 
-<section id="ace" ng-app='doc.ui-ace' ng-controller="AceCtrl">
+  <div class="row">
+    <div class="span12">
+      <div class="page-header">
+        <h1>Minimal code</h1>
+      </div>
+      <div class="row">
+        <div class="span6">
+          <div id="demo-mini">
+            <div ui-ace>Ace here</div>
+          </div>
+        </div>
 
-  <div ui-ace ng-model="aceModel">Hello</div>
-  <div ui-ace>World</div>
+        <div class="span6" ng-controller="PlunkerCtrl"
+             ng-init="
+vendor_js=['https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/ace.js'];
+        "
+            >
+          <div class="pull-right">
+            <button class="btn btn-info" ng-click="edit('1.0.7', 'UI.Ace', 'ui-ace')"><i
+                class="icon-edit icon-white"></i> Edit in plunker
+            </button>
+          </div>
+
+          <tabset>
+            <tab heading="Markup">
+              <div plunker-content="markup">
+<pre class="prettyprint">&lt;section&gt;
+
+    &lt;div ui-ace &gt;Ace here&lt;/div&gt;
+
+&lt;/section&gt;</pre>
+              </div>
+            </tab>
+            <tab heading="CSS">
+              <div plunker-content="css">
+<pre class="prettyprint">.ace_editor  {
+  min-height : 200px;
+}
+</pre>
+              </div>
+            </tab>
+          </tabset>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
-  <h3>How?</h3>
-    <pre class="prettyprint">
-    &lt;div ui-ace  ng-model="aceModel"&gt;Hello&lt;/div&gt;
-    &lt;div ui-ace&gt;World&lt;/div&gt;
-
-    &lt;style&gt;
-      .ace_editor { height: 200px; }
-    &lt;/style&gt;
-    </pre>
 </section>
