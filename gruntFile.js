@@ -1,5 +1,7 @@
 module.exports = function (grunt) {
 
+  var _ = grunt.util._;
+
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-uglify');
@@ -16,6 +18,12 @@ module.exports = function (grunt) {
     var travisOptions = process.env.TRAVIS && { browsers: [ 'Firefox', 'PhantomJS'], reporters: ['dots'] };
     return grunt.util._.extend(options, customOptions, travisOptions);
   };
+
+  // Demo dependencies
+  var js_dependencies = [
+    '<%= bower %>/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
+    '<%= bower %>/ace-builds/src-min-noconflict/ace.js'
+  ];
 
   // Project configuration.
   grunt.initConfig({
@@ -35,10 +43,8 @@ module.exports = function (grunt) {
         repoName : "ui-ace",
         demoHTML : grunt.file.read("demo/demo.html"),
         demoJS : grunt.file.read("demo/demo.js"),
-        js : [
-          '<%= bower %>/ace-builds/src-min-noconflict/ace.js',
-          'build/ui-ace.min.js'
-        ]
+        css: ['assets/css/demo.css'],
+        js: js_dependencies.concat(['build/ui-ace.min.js'])
       }
     },
     watch: {
@@ -87,8 +93,13 @@ module.exports = function (grunt) {
           return grunt.template.process(content);
         }},
         files: [
-          {src: ['<%= dist %>/.tmpl/index.tmpl'], dest: '<%= dist %>/index.html'}
+          {src: ['<%= dist %>/.tmpl/index.tmpl'], dest: '<%= dist %>/index.html'},
+          {src: ['demo/demo.css'], dest: '<%= dist %>/assets/css/demo.css'}
         ]
+          .concat(
+            _.map(js_dependencies, function (f) {
+              return {src: [f], dest: '<%= dist %>/' + f, filter: 'isFile'};
+            }))
       }
     }
   });
