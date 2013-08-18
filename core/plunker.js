@@ -7,6 +7,9 @@ angular.module('plunker', [])
 
     return function (ngVersion, moduleName, repoName, content, vendor_css, vendor_js) {
 
+      //HACK to add the css content...
+      if (content.css !== void 0) vendor_css.push('style.css');
+
       var form = angular.element('<form style="display: none;" method="post" action="http://plnkr.co/edit/?p=preview" target="_blank"></form>');
       var addField = function (name, value) {
         var input = angular.element('<input type="hidden" name="' + name + '">');
@@ -38,7 +41,6 @@ angular.module('plunker', [])
           '    <meta charset="utf-8" />\n' +
           '    <title>' + moduleName + ' : demo </title>\n\n\n' +
           '    <!-- Le css -->\n' +
-          '    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css"></script>\n\n' +
 
           listUpLink(vendor_css) + '\n' +
 
