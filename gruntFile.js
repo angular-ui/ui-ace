@@ -97,7 +97,12 @@ module.exports = function (grunt) {
           {src: ['demo/demo.css'], dest: '<%= dist %>/assets/css/demo.css'}
         ]
           .concat(
-            _.map(js_dependencies, function (f) {
+            _.map(js_dependencies.concat([
+              '<%= bower %>/ace-builds/src-min-noconflict/theme-twilight.js',
+              '<%= bower %>/ace-builds/src-min-noconflict/mode-markdown.js',
+              '<%= bower %>/ace-builds/src-min-noconflict/mode-scheme.js',
+              '<%= bower %>/ace-builds/src-min-noconflict/worker-javascript.js'
+            ]), function (f) {
               return {src: [f], dest: '<%= dist %>/' + f, filter: 'isFile'};
             }))
       }

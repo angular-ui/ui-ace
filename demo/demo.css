@@ -1,3 +1,11 @@
 .ace_editor {
-  min-height: 200px;
+  height: 180px;
+}
+
+#demo-general .ace_editor {
+  height: 250px;
+}
+
+#demo-mode-changing .ace_editor {
+  height: 300px;
 }
