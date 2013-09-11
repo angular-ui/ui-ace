@@ -26,7 +26,7 @@ angular.module('ui.ace', [])
         onChange = function (callback) {
           return function (e) {
             var newValue = session.getValue();
-            if (newValue !== scope.$eval(attrs.value) && !scope.$$phase) {
+            if (newValue !== scope.$eval(attrs.value) && !scope.$$phase && !scope.$root.$$phase) {
               if (angular.isDefined(ngModel)) {
                 scope.$apply(function () {
                   ngModel.$setViewValue(newValue);
