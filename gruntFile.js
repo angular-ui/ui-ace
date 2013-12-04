@@ -7,6 +7,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-conventional-changelog');
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'karma:unit']);
@@ -105,6 +106,11 @@ module.exports = function (grunt) {
             ]), function (f) {
               return {src: [f], dest: '<%= dist %>/' + f, filter: 'isFile'};
             }))
+      }
+    },
+    changelog: {
+      options: {
+        dest: 'CHANGELOG.md'
       }
     }
   });
