@@ -94,6 +94,11 @@ module.exports = function (grunt) {
               return {src: [f], dest: '<%= dist %>/' + f, filter: 'isFile'};
             }))
       }
+    },
+    changelog: {
+      options: {
+        dest: 'CHANGELOG.md'
+      }
     }
   });
 
