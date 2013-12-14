@@ -95,6 +95,7 @@ angular.module('ui.ace', [])
         session.on('change', onChange(opts.onChange));
 
         elm.on('$destroy', function() {
+          acee.session.$stopWorker();
           acee.destroy();
         });
       }
