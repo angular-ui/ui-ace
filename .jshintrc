@@ -1,0 +1,25 @@
+{
+  "immed": true,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonew": true,
+  "trailing": true,
+  "maxlen": 200,
+  "boss": true,
+  "eqnull": true,
+  "expr": true,
+  "globalstrict": true,
+  "laxbreak": true,
+  "loopfunc": true,
+  "sub": true,
+  "undef": true,
+  "browser": true,
+  "quotmark": true,
+  "globals": {
+    "module"     : false,
+    "angular"    : false,
+    "require"    : false,
+    "process"    : false
+  }
+}

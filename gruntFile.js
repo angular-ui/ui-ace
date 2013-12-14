@@ -54,19 +54,8 @@ module.exports = function (grunt) {
       start: {configFile: 'test/karma.conf.js'}
     },
     jshint:{
-      files:['ui-ace.js', 'test/**/*.js', 'demo/**/*.js'],
-      options:{
-        curly:true,
-        eqeqeq:true,
-        immed:true,
-        latedef:true,
-        newcap:true,
-        noarg:true,
-        sub:true,
-        boss:true,
-        eqnull:true,
-        globals:{}
-      }
+      files:['ui-ace.js', 'demo/**/*.js'],
+      options: { jshintrc: '.jshintrc' }
     },
     uglify: {
       options: {banner: '<%= meta.banner %>'},
