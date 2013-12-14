@@ -156,6 +156,18 @@ describe('uiAce', function () {
         expect(compileWithObject).toThrow();
       });
     });
+
+    it('should call destroy when the element is removed', function () {
+      var element = $compile('<div ui-ace ng-model="foo">')(scope);
+      spyOn(_ace, 'destroy').andCallThrough();
+      spyOn(_ace.session, '$stopWorker').andCallThrough();
+
+      element.remove();
+      scope.$apply();
+
+      expect(_ace.session.$stopWorker).toHaveBeenCalled();
+      expect(_ace.destroy).toHaveBeenCalled();
+    });
   });
 
   describe('when the model is an object or an array', function () {
@@ -176,6 +188,5 @@ describe('uiAce', function () {
       expect(compileWithArray).toThrow();
     });
   });
-
 
 });

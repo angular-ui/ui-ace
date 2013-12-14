@@ -94,6 +94,10 @@ angular.module('ui.ace', [])
         // EVENTS
         session.on('change', onChange(opts.onChange));
 
+        elm.on('$destroy', function() {
+          acee.session.$stopWorker();
+          acee.destroy();
+        });
       }
     };
   }]);
