@@ -1,10 +1,8 @@
+'use strict';
+
 /**
  * Binds a ACE Ediitor widget
  */
-
-//TODO handle Could not load worker ace.js:1
-//DOMException {message: "SECURITY_ERR: DOM Exception 18", name: "SECURITY_ERR", code: 18, stack: "Error: An attempt was made to break through the se…cloudfront.net/src-min-noconflict/ace.js:1:76296)", INDEX_SIZE_ERR: 1…}
-
 angular.module('ui.ace', [])
   .constant('uiAceConfig', {})
   .directive('uiAce', ['uiAceConfig', function (uiAceConfig) {
@@ -66,16 +64,16 @@ angular.module('ui.ace', [])
 
         // Basic options
         if (angular.isString(opts.theme)) {
-          acee.setTheme("ace/theme/" + opts.theme);
+          acee.setTheme('ace/theme/' + opts.theme);
         }
         if (angular.isString(opts.mode)) {
-          session.setMode("ace/mode/" + opts.mode);
+          session.setMode('ace/mode/' + opts.mode);
         }
 
         attrs.$observe('readonly', function (value) {
           acee.setReadOnly(value === 'true');
         });
-        
+
         // Value Blind
         if (angular.isDefined(ngModel)) {
           ngModel.$formatters.push(function (value) {

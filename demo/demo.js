@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('doc.ui-ace', ['ui.ace', 'prettifyDirective', 'ui.bootstrap', 'plunker'])
   .controller('AceCtrl', ['$scope', function ($scope) {
 
@@ -13,7 +15,7 @@ angular.module('doc.ui-ace', ['ui.ace', 'prettifyDirective', 'ui.bootstrap', 'pl
 
         // HACK to have the ace instance in the scope...
         $scope.modeChanged = function () {
-          _ace.getSession().setMode("ace/mode/" + $scope.mode.toLowerCase());
+          _ace.getSession().setMode('ace/mode/' + $scope.mode.toLowerCase());
         };
 
       }

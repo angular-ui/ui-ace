@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function (grunt) {
 
   var _ = grunt.util._;
@@ -6,7 +8,7 @@ module.exports = function (grunt) {
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'karma:unit']);
-  grunt.registerTask('server', ['karma:start']);
+  grunt.registerTask('serve', ['karma:continuous', 'watch']);
   grunt.registerTask('build-doc', ['uglify', 'copy']);
 
   var testConfig = function (configFile, customOptions) {
@@ -35,26 +37,27 @@ module.exports = function (grunt) {
         ' */',
         ''].join('\n'),
       view : {
-        humaName : "UI Ace",
-        repoName : "ui-ace",
-        demoHTML : grunt.file.read("demo/demo.html"),
-        demoJS : grunt.file.read("demo/demo.js"),
+        humaName : 'UI Ace',
+        repoName : 'ui-ace',
+        demoHTML : grunt.file.read('demo/demo.html'),
+        demoJS : grunt.file.read('demo/demo.js'),
         css: ['assets/css/demo.css'],
         js: js_dependencies.concat(['build/ui-ace.min.js'])
       }
     },
     watch: {
       karma: {
-        files: ['ui-ace.js', 'test/*.js'],
-        tasks: ['karma:unit:run'] //NOTE the :run flag
+        files: ['ui-ace.js', 'demo/**/*.js', 'gruntFile.js'],
+        tasks: ['jshint', 'karma:unit:run'] //NOTE the :run flag
       }
     },
     karma: {
       unit: testConfig('test/karma.conf.js'),
-      start: {configFile: 'test/karma.conf.js'}
+      start: {configFile: 'test/karma.conf.js'},
+      continuous: {configFile: 'test/karma.conf.js', background: true }
     },
     jshint:{
-      files:['ui-ace.js', 'demo/**/*.js'],
+      files:['ui-ace.js', 'demo/**/*.js', 'gruntFile.js'],
       options: { jshintrc: '.jshintrc' }
     },
     uglify: {
