@@ -46,8 +46,8 @@ describe('uiAce', function () {
 
 
     beforeEach(function () {
-      var aceEditFunction = ace.edit;
-      spyOn(ace, 'edit').andCallFake(function () {
+      var aceEditFunction = window.ace.edit;
+      spyOn(window.ace, 'edit').andCallFake(function () {
         _ace = aceEditFunction.apply(this, arguments);
         return _ace;
       });
@@ -74,10 +74,10 @@ describe('uiAce', function () {
         });
       });
       describe('onLoad', function () {
-        it("runs the onLoad callback", function () {
+        it('runs the onLoad callback', function () {
           scope.aceLoaded = function () {
           };
-          spyOn(scope, "aceLoaded");
+          spyOn(scope, 'aceLoaded');
           $compile('<div ui-ace="{onLoad: aceLoaded}">')(scope);
           expect(scope.aceLoaded).toHaveBeenCalled();
           expect(scope.aceLoaded).toHaveBeenCalledWith(_ace);
@@ -91,7 +91,7 @@ describe('uiAce', function () {
         scope.$apply();
         expect(_ace.getReadOnly()).toBeTruthy();
         $compile('<div ui-ace readonly="{{foo}}">')(scope);
-        scope.$apply("foo = true");
+        scope.$apply('foo = true');
         expect(_ace.getReadOnly()).toBeTruthy();
       });
       it('should read only option false', function () {
@@ -103,9 +103,9 @@ describe('uiAce', function () {
         expect(_ace.getReadOnly()).toBeFalsy();
         $compile('<div ui-ace readonly="{{foo}}">')(scope);
         expect(_ace.getReadOnly()).toBeFalsy();
-        scope.$apply("foo = true");
+        scope.$apply('foo = true');
         expect(_ace.getReadOnly()).toBeTruthy();
-        scope.$apply("foo = false");
+        scope.$apply('foo = false');
         expect(_ace.getReadOnly()).toBeFalsy();
       });
     });
@@ -113,7 +113,7 @@ describe('uiAce', function () {
     describe('when the model changes', function () {
       it('should update the IDE', function () {
         $compile('<div ui-ace ng-model="foo">')(scope);
-        scope.$apply("foo = 'bar'");
+        scope.$apply('foo = "bar"');
         expect(_ace.getSession().getValue()).toBe(scope.foo);
       });
     });
@@ -121,7 +121,7 @@ describe('uiAce', function () {
     describe('when the IDE changes', function () {
       it('should update the model', function () {
         $compile('<div ui-ace ng-model="foo">')(scope);
-        scope.$apply("foo = 'bar'");
+        scope.$apply('foo = "bar"');
 
         var value = 'baz';
         _ace.getSession().setValue(value);
@@ -148,9 +148,9 @@ describe('uiAce', function () {
       it('should throw an error', function () {
         function compileWithObject() {
           scope.changing = {};
-          scope.$apply("foo = 'bar'");
+          scope.$apply('foo = "bar"');
           $compile('<div ui-ace="{onChange: changing}" ng-model="foo">')(scope);
-          _ace.getSession().setValue("baz");
+          _ace.getSession().setValue('baz');
         }
 
         expect(compileWithObject).toThrow();
