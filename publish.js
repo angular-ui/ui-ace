@@ -21,7 +21,7 @@ module.exports = function() {
 
   function putThemInVendorDir (filepath) {
     return 'vendor/' + path.basename(filepath);
-  }g
+  }
 
   return {
     humaName : 'UI.Ace',
