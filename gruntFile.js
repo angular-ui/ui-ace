@@ -83,6 +83,38 @@ module.exports = function (grunt) {
       server: { options: { keepalive: true } },
       continuous: { options: { keepalive: false } }
     },
+
+
+    jshint: {
+      src: {
+        files:{ src : ['src/*.js', 'demo/**/*.js'] },
+        options: { jshintrc: '.jshintrc' }
+      },
+      test: {
+        files:{ src : [ 'test/*.spec.js', 'gruntFile.js'] },
+        options: grunt.util._.extend({}, grunt.file.readJSON('.jshintrc'), {
+          node: true,
+          globals: {
+            angular: false,
+            inject: false,
+            jQuery: false,
+
+            jasmine: false,
+            afterEach: false,
+            beforeEach: false,
+            ddescribe: false,
+            describe: false,
+            expect: false,
+            iit: false,
+            it: false,
+            spyOn: false,
+            xdescribe: false,
+            xit: false
+          }
+        })
+      }
+    },
+
     uglify: {
       options: {banner: '<%= meta.banner %>'},
       build: {
