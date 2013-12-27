@@ -13,7 +13,7 @@ This directive allows you to add [ACE](http://ajaxorg.github.io/ace/) editor ele
 You can get it from [Bower](http://bower.io/)
 
 ```sh
-bower install angular-ui-ace
+bower install angular-ui-ace\#bower
 ```
 
 This will copy the UI.Ace files into a `bower_components` folder, along with its dependencies. Load the script files in your application:
