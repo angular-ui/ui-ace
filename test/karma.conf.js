@@ -17,7 +17,7 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/ace-builds/src-min-noconflict/ace.js',
-      'ui-ace.js',
+      'src/*.js',
       'test/*.spec.js'
     ],
 
