@@ -2,14 +2,33 @@
 
 module.exports = function (grunt) {
 
-  var _ = grunt.util._;
-
   require('load-grunt-tasks')(grunt);
 
   // Default task.
   grunt.registerTask('default', ['jshint', 'karma:unit']);
-  grunt.registerTask('serve', ['karma:continuous', 'watch']);
-  grunt.registerTask('build-doc', ['uglify', 'copy']);
+  grunt.registerTask('serve', ['karma:continuous', 'dist', 'build:gh-pages', 'connect:continuous', 'watch']);
+  grunt.registerTask('dist', ['ngmin', 'uglify']);
+
+
+  // HACK TO ACCESS TO THE COMPONENT-PUBLISHER
+  function fakeTargetTask(prefix){
+    return function(){
+
+      if (this.args.length !== 1) return grunt.log.fail('Just give the name of the ' + prefix + ' you want like :\ngrunt ' + prefix + ':bower');
+
+      var done = this.async();
+      var spawn = require('child_process').spawn;
+      spawn('./node_modules/.bin/gulp', [ prefix, '--branch='+this.args[0] ].concat(grunt.option.flags()), {
+        cwd : './node_modules/angular-ui-publisher',
+        stdio: 'inherit'
+      }).on('close', done);
+    };
+  }
+
+  grunt.registerTask('build', fakeTargetTask('build'));
+  grunt.registerTask('publish', fakeTargetTask('publish'));
+  //
+
 
   var testConfig = function (configFile, customOptions) {
     var options = { configFile: configFile, singleRun: true };
@@ -17,16 +36,8 @@ module.exports = function (grunt) {
     return grunt.util._.extend(options, customOptions, travisOptions);
   };
 
-  // Demo dependencies
-  var js_dependencies = [
-    '<%= bower %>/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
-    '<%= bower %>/ace-builds/src-min-noconflict/ace.js'
-  ];
-
   // Project configuration.
   grunt.initConfig({
-    bower: 'bower_components',
-    dist : '<%= bower %>/angular-ui-docs',
     pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: ['/**',
@@ -35,66 +46,63 @@ module.exports = function (grunt) {
         ' * @link <%= pkg.homepage %>',
         ' * @license <%= pkg.license %>',
         ' */',
-        ''].join('\n'),
-      view : {
-        humaName : 'UI Ace',
-        repoName : 'ui-ace',
-        demoHTML : grunt.file.read('demo/demo.html'),
-        demoJS : grunt.file.read('demo/demo.js'),
-        css: ['assets/css/demo.css'],
-        js: js_dependencies.concat(['build/ui-ace.min.js'])
-      }
+        ''].join('\n')
     },
+
     watch: {
-      karma: {
-        files: ['ui-ace.js', 'demo/**/*.js', 'gruntFile.js'],
-        tasks: ['jshint', 'karma:unit:run'] //NOTE the :run flag
+      src: {
+        files: ['src/*'],
+        tasks: ['jshint:src', 'karma:unit:run', 'dist', 'build:gh-pages']
+      },
+      test: {
+        files: ['test/*.js'],
+        tasks: ['jshint:test', 'karma:unit:run']
+      },
+      demo: {
+        files: ['demo/*', 'publish.js'],
+        tasks: ['jshint', 'build:gh-pages']
+      },
+      livereload: {
+        files: ['out/built/gh-pages/**/*'],
+        options: { livereload: true }
       }
     },
+
     karma: {
       unit: testConfig('test/karma.conf.js'),
-      start: {configFile: 'test/karma.conf.js'},
-      continuous: {configFile: 'test/karma.conf.js', background: true }
+      server: {configFile: 'test/karma.conf.js'},
+      continuous: {configFile: 'test/karma.conf.js',  background: true }
     },
-    jshint:{
-      files:['ui-ace.js', 'demo/**/*.js', 'gruntFile.js'],
-      options: { jshintrc: '.jshintrc' }
+
+    connect: {
+      options: {
+        base : 'out/built/gh-pages',
+        open: true,
+        livereload: true
+      },
+      server: { options: { keepalive: true } },
+      continuous: { options: { keepalive: false } }
     },
     uglify: {
       options: {banner: '<%= meta.banner %>'},
       build: {
-        files: {
-          '<%= dist %>/build/<%= meta.view.repoName %>.min.js': ['<%= meta.view.repoName %>.js']
-        }
+        expand: true,
+        cwd: 'dist',
+        src: ['*.js'],
+        ext: '.min.js',
+        dest: 'dist'
       }
     },
-    copy: {
+
+    ngmin: {
       main: {
-        files: [
-          {src: ['<%= meta.view.repoName %>.js'], dest: '<%= dist %>/build/<%= meta.view.repoName %>.js', filter: 'isFile'},
-          {src: ['demo/demo.html'], dest: '<%= dist %>/demos.html', filter: 'isFile'},
-          {src: ['<%= bower %>/ace-builds/src-min-noconflict/ace.js'], dest: '<%= dist %>/<%= bower %>/ace-builds/src-min-noconflict/ace.js', filter: 'isFile'}
-        ]
-      },
-      template : {
-        options : {processContent : function(content){
-          return grunt.template.process(content);
-        }},
-        files: [
-          {src: ['<%= dist %>/.tmpl/index.tmpl'], dest: '<%= dist %>/index.html'},
-          {src: ['demo/demo.css'], dest: '<%= dist %>/assets/css/demo.css'}
-        ]
-          .concat(
-            _.map(js_dependencies.concat([
-              '<%= bower %>/ace-builds/src-min-noconflict/theme-twilight.js',
-              '<%= bower %>/ace-builds/src-min-noconflict/mode-markdown.js',
-              '<%= bower %>/ace-builds/src-min-noconflict/mode-scheme.js',
-              '<%= bower %>/ace-builds/src-min-noconflict/worker-javascript.js'
-            ]), function (f) {
-              return {src: [f], dest: '<%= dist %>/' + f, filter: 'isFile'};
-            }))
+        expand: true,
+        cwd: 'src',
+        src: ['*.js'],
+        dest: 'dist'
       }
     },
+
     changelog: {
       options: {
         dest: 'CHANGELOG.md'
