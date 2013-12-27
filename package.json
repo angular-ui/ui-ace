@@ -9,6 +9,7 @@
   "main": "./ui-ace.js",
   "dependencies": {},
   "devDependencies": {
+    "angular-ui-publisher": "~1.x",
     "grunt": "~0.4.2",
     "grunt-contrib-copy": "~0.4.1",
     "grunt-contrib-jshint": "~0.7.2",
@@ -26,7 +27,9 @@
     "karma-requirejs": "~0.2.0",
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.8",
-    "grunt-conventional-changelog": "~1.0.0"
+    "grunt-conventional-changelog": "~1.0.0",
+    "grunt-ngmin": "0.0.3",
+    "grunt-contrib-connect": "~0.5.0"
   },
   "scripts": {},
   "repository": {
