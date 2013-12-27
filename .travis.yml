@@ -9,11 +9,9 @@ before_install:
 - npm install
 - bower install --force
 - bower install --force
-before_script: ./bower_components/angular-ui-docs/.travis/before_script.sh
-after_success: ./bower_components/angular-ui-docs/.travis/after_success.sh
-branches:
-  only:
-  - master
+after_success:
+- "./node_modules/angular-ui-publisher/travis/authentication.sh || exit 0"
+- "grunt dist build:gh-pages publish:gh-pages build:bower publish:bower"
 script: grunt
 env:
   global:
