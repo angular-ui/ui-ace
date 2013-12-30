@@ -1,71 +1,65 @@
-<section id="aces" ng-app="doc.ui-ace">
+<section id="aces" ng-app="doc.ui-ace" ng-cloak >
 
 <!-- =Minimal code
 --------------------------------------------------------------------------- -->
-<div class="row">
-    <div class="span12">
-      <div class="page-header">
-        <h1>Minimal code</h1>
-      </div>
-      <div class="row">
-        <div class="span6">
-          <div id="demo-mini">
-            <div ui-ace>Ace here</div>
-          </div>
-        </div>
-
-        <div class="span6" ng-controller="PlunkerCtrl"
-             ng-init="
-vendor_js=['https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/ace.js'];
-        "
-            >
-          <div class="pull-right">
-            <button class="btn btn-info" ng-click="edit('1.0.7', 'UI.Ace', 'ui-ace')"><i
-                class="icon-edit icon-white"></i> Edit in plunker
-            </button>
-          </div>
-
-          <tabset>
-            <tab heading="Markup">
-              <div plunker-content="markup">
-<pre class="prettyprint">&lt;section&gt;
-
-    &lt;div ui-ace &gt;Ace here&lt;/div&gt;
-
-&lt;/section&gt;</pre>
-              </div>
-            </tab>
-            <tab heading="CSS">
-              <div plunker-content="css">
-<pre class="prettyprint">.ace_editor  {
-  height : 200px;
-}
-</pre>
-              </div>
-            </tab>
-          </tabset>
-        </div>
+<div id="demo-mini">
+  <div class="page-header">
+    <h1>Minimal code</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div id="demo-mini">
+        <div ui-ace>Ace here</div>
       </div>
     </div>
-  </div>
 
+    <div class="col-md-6" ng-controller="PlunkerCtrl"
+         ng-init="
+  vendor_js=['https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/ace.js'];
+    "
+        >
+      <div class="pull-right">
+        <button class="btn btn-info" ng-click="edit('1.2.6', 'UI.Ace', 'ui-ace')"><i
+            class="icon-edit icon-white"></i> Edit in plunker
+        </button>
+      </div>
+
+      <tabset>
+        <tab heading="Markup">
+          <div plunker-content="markup">
+  <pre class="prettyprint">&lt;section&gt;
+  &lt;div ui-ace &gt;Ace here&lt;/div&gt;
+&lt;/section&gt;</pre>
+          </div>
+        </tab>
+        <tab heading="CSS">
+          <div plunker-content="css">
+  <pre class="prettyprint">.ace_editor  {
+  height : 200px;
+}
+  </pre>
+          </div>
+        </tab>
+      </tabset>
+    </div>
+  </div>
+</div>
 
 <!-- =General options demo
 --------------------------------------------------------------------------- -->
-<div id="demo-general" class="row">
-  <div class="span12">
-    <div class="page-header">
-      <h1>General options</h1>
-    </div>
-    <div class="row">
-      <div class="span6">
-        <div>
-          <div ui-ace="{
-              useWrapMode : true,
-              showGutter: false,
-              theme:'twilight',
-              mode: 'markdown'
-            }"># Theme and mode
+<div id="demo-general">
+  <div class="page-header">
+    <h1>General options</h1>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <div>
+        <div ui-ace="{
+            useWrapMode : true,
+            showGutter: false,
+            theme:'twilight',
+            mode: 'markdown'
+          }"># Theme and mode
 
 *Lorem ipsum* dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -73,24 +67,24 @@ quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
         </div>
       </div>
+    </div>
 
-      <div class="span6" ng-controller="PlunkerCtrl"
-           ng-init="
+    <div class="col-md-6" ng-controller="PlunkerCtrl"
+         ng-init="
 vendor_js=['https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/ace.js'];
-        "
-          >
-        <div class="pull-right">
-          <button class="btn btn-info" ng-click="edit('1.0.7', 'UI.Ace', 'ui-ace')"><i
-              class="icon-edit icon-white"></i> Edit in plunker
-          </button>
-        </div>
+      "
+        >
+      <div class="pull-right">
+        <button class="btn btn-info" ng-click="edit('1.2.6', 'UI.Ace', 'ui-ace')"><i
+            class="icon-edit icon-white"></i> Edit in plunker
+        </button>
+      </div>
 
-        <tabset>
-          <tab heading="Markup">
-            <div plunker-content="markup">
+      <tabset>
+        <tab heading="Markup">
+          <div plunker-content="markup">
 <pre class="prettyprint">&lt;section&gt;
     &lt;div ui-ace=&quot;{
       useWrapMode : true,
@@ -107,44 +101,47 @@ cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.&lt;/div&gt;
 
 &lt;/section&gt;</pre>
-            </div>
-          </tab>
-          <tab heading="CSS">
-            <div plunker-content="css">
+          </div>
+        </tab>
+        <tab heading="CSS">
+          <div plunker-content="css">
 <pre class="prettyprint">.ace_editor  {
   height : 200px;
 }
 </pre>
-            </div>
-          </tab>
-        </tabset>
-      </div>
+          <div style="margin-top: 260px;"></div>
+          </div>
+        </tab>
+      </tabset>
     </div>
   </div>
 </div>
 
 <!-- =Mode-Changing demo
 --------------------------------------------------------------------------- -->
-<div id="demo-mode-changing" class="row">
-  <div class="span12" ng-controller="AceCtrl">
+<div id="demo-mode-changing">
     <div class="page-header">
       <h1>Mode-Changing demo</h1>
     </div>
-    <div>
-      <div ui-ace="aceOption" ng-model="aceModel">Ace here</div>
+
+    <div class="row" ng-controller="AceCtrl">
+      <div class="col-md-12">
+        <div ui-ace="aceOption" ng-model="aceModel">Ace here</div>
+      </div>
+      <div class="col-md-6">
+        Mode : <select class="form-control" ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()"></select>
+      </div>
     </div>
-    Mode : <select ng-model="mode" ng-options="m for m in modes" ng-change="modeChanged()">
-  </select>
-  </div>
 
+<hr>
 
-  <div class="span12" ng-controller="PlunkerCtrl"
+  <div ng-controller="PlunkerCtrl"
        ng-init="
 vendor_js=['https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/ace.js'];
         "
       >
     <div class="pull-right">
-      <button class="btn btn-info" ng-click="edit('1.0.7', 'UI.Ace', 'ui-ace')"><i
+      <button class="btn btn-info" ng-click="edit('1.2.6', 'UI.Ace', 'ui-ace')"><i
           class="icon-edit icon-white"></i> Edit in plunker
       </button>
     </div>
@@ -159,6 +156,7 @@ vendor_js=['https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/a
   &lt;select ng-model=&quot;mode&quot; ng-options=&quot;m for m in modes&quot; ng-change=&quot;modeChanged()&quot;&gt;&lt;/select&gt;
 
 &lt;/section&gt;</pre>
+          <div style="margin-top: 390px;"></div>
         </div>
       </tab>
       <tab heading="JavaScript">
@@ -199,6 +197,7 @@ vendor_js=['https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/a
   height : 300px;
 }
 </pre>
+          <div style="margin-top: 470px;"></div>
         </div>
       </tab>
     </tabset>
