@@ -8,7 +8,6 @@ var path = require('path');
 module.exports = function() {
 
   var js_dependencies =[
-    'bower_components/angular-ui-bootstrap-bower/ui-bootstrap-tpls.min.js',
     'bower_components/ace-builds/src-min-noconflict/ace.js',
   ];
 
