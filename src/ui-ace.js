@@ -98,6 +98,13 @@ angular.module('ui.ace', [])
           acee.session.$stopWorker();
           acee.destroy();
         });
+        
+        scope.$watch(function() {
+          return [elm[0].offsetWidth, elm[0].offsetHeight];
+        }, function() {
+          acee.resize();
+          acee.renderer.updateFull();
+        }, true);
       }
     };
   }]);
