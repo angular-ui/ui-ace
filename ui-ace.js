@@ -12,7 +12,8 @@ angular.module('ui.ace', []).constant('uiAceConfig', {}).directive('uiAce', [
         var options, opts, acee, session, onChange;
         options = uiAceConfig.ace || {};
         opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
-        acee = window.ace.edit(elm[0]);
+        var $ace = opts.ace || window.ace; // find out own "ace" reference, or use the global one
+        acee = $ace.edit(elm[0]);
         session = acee.getSession();
         onChange = function (callback) {
           return function (e) {
