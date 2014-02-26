@@ -96,10 +96,17 @@ angular.module('ui.ace', [])
         var opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
 
         /**
+         * ACE library reference
+         * Use our own "ace" reference or use the global one.
+         * @type object
+         */
+        var ace = opts.ace || window.ace;
+
+        /**
          * ACE editor
          * @type object
          */
-        var acee = window.ace.edit(elm[0]);
+        var acee = ace.edit(elm[0]);
 
         /**
          * ACE editor session.
