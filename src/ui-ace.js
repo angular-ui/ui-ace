@@ -67,12 +67,12 @@ angular.module('ui.ace', [])
         }
         if (angular.isDefined(opts.disableSearch) && opts.disableSearch) {
           acee.commands.addCommands([{
-            name: "unfind",
+            name: 'unfind',
             bindKey: {
-              win: "Ctrl-F",
-              mac: "Command-F"
+              win: 'Ctrl-F',
+              mac: 'Command-F'
             },
-            exec: function (editor, line) {
+            exec: function () {
               return false;
             },
             readOnly: true
