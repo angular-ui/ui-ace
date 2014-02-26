@@ -7,10 +7,6 @@ angular.module('ui.ace', [])
   .constant('uiAceConfig', {})
   .directive('uiAce', ['uiAceConfig', function (uiAceConfig) {
 
-    if (angular.isUndefined(window.ace)) {
-      throw new Error('ui-ace need ace to work... (o rly?)');
-    }
-
     /**
      * Sets editor options such as the wrapping mode or the syntax checker.
      *
@@ -101,6 +97,10 @@ angular.module('ui.ace', [])
          * @type object
          */
         var ace = opts.ace || window.ace;
+
+        if (!ace) {
+          throw new Error('ui-ace need ace to work... (o rly?)');
+        }
 
         /**
          * ACE editor
