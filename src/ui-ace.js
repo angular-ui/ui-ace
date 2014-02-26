@@ -50,34 +50,34 @@ angular.module('ui.ace', [])
 
 
         // Boolean options
-				if (angular.isDefined(opts.showGutter)) {
-					acee.renderer.setShowGutter(opts.showGutter);
-				}
-				if (angular.isDefined(opts.showInvisibles)) {
-					acee.renderer.setShowInvisibles(opts.showInvisibles);
-				}
-				if (angular.isDefined(opts.showIndentGuides)) {
-					acee.renderer.setDisplayIndentGuides(opts.showIndentGuides);
-				}
-				if (angular.isDefined(opts.useWrapMode)) {
-					session.setUseWrapMode(opts.useWrapMode);
-				}
-				if (angular.isDefined(opts.useSoftTabs)) {
-					session.setUseSoftTabs(opts.useSoftTabs);
-				}
-				if (angular.isDefined(opts.disableSearch) && opts.disableSearch) {
-					acee.commands.addCommands([{
-						name: "unfind",
-						bindKey: {
-							win: "Ctrl-F",
-							mac: "Command-F"
-						},
-						exec: function (editor, line) {
-							return false;
-						},
-						readOnly: true
-					}]);
-				}
+        if (angular.isDefined(opts.showGutter)) {
+          acee.renderer.setShowGutter(opts.showGutter);
+        }
+        if (angular.isDefined(opts.showInvisibles)) {
+          acee.renderer.setShowInvisibles(opts.showInvisibles);
+        }
+        if (angular.isDefined(opts.showIndentGuides)) {
+          acee.renderer.setDisplayIndentGuides(opts.showIndentGuides);
+        }
+        if (angular.isDefined(opts.useWrapMode)) {
+          session.setUseWrapMode(opts.useWrapMode);
+        }
+        if (angular.isDefined(opts.useSoftTabs)) {
+          session.setUseSoftTabs(opts.useSoftTabs);
+        }
+        if (angular.isDefined(opts.disableSearch) && opts.disableSearch) {
+          acee.commands.addCommands([{
+            name: "unfind",
+            bindKey: {
+              win: "Ctrl-F",
+              mac: "Command-F"
+            },
+            exec: function (editor, line) {
+              return false;
+            },
+            readOnly: true
+          }]);
+        }
 
         // onLoad callback
         if (angular.isFunction(opts.onLoad)) {
