@@ -48,7 +48,6 @@ angular.module('ui.ace', [])
           };
         };
 
-
         // Boolean options
         if (angular.isDefined(opts.showGutter)) {
           acee.renderer.setShowGutter(opts.showGutter);
@@ -94,11 +93,24 @@ angular.module('ui.ace', [])
         // EVENTS
         session.on('change', onChange(opts.onChange));
 
+        acee.on('blur', function() {
+          if (angular.isDefined(opts.onBlur)) {
+            scope.$apply(function () {
+              if (angular.isFunction(opts.onBlur)) {
+                opts.onBlur(acee);
+              }
+              else {
+                throw new Error('ui-ace use a function as callback.');
+              }
+            });
+          }
+        });
+
         elm.on('$destroy', function() {
           acee.session.$stopWorker();
           acee.destroy();
         });
-        
+
         scope.$watch(function() {
           return [elm[0].offsetWidth, elm[0].offsetHeight];
         }, function() {
