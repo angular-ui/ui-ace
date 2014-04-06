@@ -158,7 +158,7 @@ angular.module('ui.ace', [])
               }
             });
           }
-        }
+        };
 
         /**
          * Listener factory. Until now only change listeners can be created.
