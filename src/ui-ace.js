@@ -50,7 +50,7 @@ angular.module('ui.ace', [])
       if (angular.isString(opts.mode)) {
         session.setMode('ace/mode/' + opts.mode);
       }
-    }
+    };
 
     return {
       restrict: 'EA',
