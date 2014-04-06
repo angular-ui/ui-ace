@@ -90,17 +90,62 @@ angular.module('ui.ace', [])
         var onChangeListener;
 
         /**
+         * Reference to a blur listener created by the listener factory.
+         * @function
+         * @see listenerFactory.onBlur
+         */
+        var onBlurListener;
+
+        /**
+         * Calls a callback by checking its existing. The argument list
+         * is variable and thus this function is relying on the arguments
+         * object.
+         * @throws {Error} If the callback isn't a function
+         */
+        var executeUserCallback = function () {
+
+          /**
+           * The callback function grabbed from the array-like arguments
+           * object. The first argument should always be the callback.
+           *
+           * @see [arguments]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/arguments}
+           * @type {*}
+           */
+          var callback = arguments[0];
+
+          /**
+           * Arguments to be passed to the callback. These are taken
+           * from the array-like arguments object. The first argument
+           * is stripped because that should be the callback function.
+           *
+           * @see [arguments]{@link https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions_and_function_scope/arguments}
+           * @type {Array}
+           */
+          var args = Array.prototype.slice.call(arguments, 1);
+
+          if (angular.isDefined(callback)) {
+            scope.$apply(function () {
+              if (angular.isFunction(callback)) {
+                callback(args);
+              } else {
+                throw new Error('ui-ace use a function as callback.');
+              }
+            });
+          }
+        }
+
+        /**
          * Listener factory. Until now only change listeners can be created.
          * @type object
          */
         var listenerFactory = {
           /**
            * Creates a change listener which propagates the change event
-           * to the callback from the user option onChange. It might be
-           * exchanged during runtime, if this happens the old listener
-           * will be unbound.
+           * and the editor session to the callback from the user option
+           * onChange. It might be exchanged during runtime, if this
+           * happens the old listener will be unbound.
            *
-           * @param callback callback function taken from the
+           * @param callback callback function defined in the user options
            * @see onChangeListener
            */
           onChange: function (callback) {
@@ -112,21 +157,23 @@ angular.module('ui.ace', [])
                     ngModel.$setViewValue(newValue);
                   });
                 }
-
-                /**
-                 * Call the user onChange function.
-                 */
-                if (angular.isDefined(callback)) {
-                  scope.$apply(function () {
-                    if (angular.isFunction(callback)) {
-                      callback(e, acee);
-                    } else {
-                      throw new Error('ui-ace use a function as callback.');
-                    }
-                  });
-                }
+                executeUserCallback(callback, e, acee);
               }
             };
+          },
+          /**
+           * Creates a blur listener which propagates the editor session
+           * to the callback from the user option onBlur. It might be
+           * exchanged during runtime, if this happens the old listener
+           * will be unbound.
+           *
+           * @param callback callback function defined in the user options
+           * @see onBlurListener
+           */
+          onBlur: function (callback) {
+            return function () {
+              executeUserCallback(callback, acee);
+            }
           }
         };
 
@@ -159,12 +206,20 @@ angular.module('ui.ace', [])
         scope.$watch( attrs.uiAce, function() {
           opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
 
-          // unbind old listener
+          // unbind old change listener
           session.removeListener('change', onChangeListener);
 
-          // bind new listener
+          // bind new change listener
           onChangeListener = listenerFactory.onChange(opts.onChange);
           session.on('change', onChangeListener);
+
+          // unbind old blur listener
+          //session.removeListener('blur', onBlurListener);
+          acee.removeListener('blur', onBlurListener);
+
+          // bind new blur listener
+          onBlurListener = listenerFactory.onBlur(opts.onBlur);
+          acee.on('blur', onBlurListener);
 
           setOptions(acee, session, opts);
         }, /* deep watch */ true );
@@ -172,6 +227,9 @@ angular.module('ui.ace', [])
         // EVENTS
         onChangeListener = listenerFactory.onChange(opts.onChange);
         session.on('change', onChangeListener);
+
+        onBlurListener = listenerFactory.onBlur(opts.onBlur);
+        acee.on('blur', onBlurListener);
 
         elm.on('$destroy', function () {
           acee.session.$stopWorker();
