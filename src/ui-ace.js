@@ -199,7 +199,7 @@ angular.module('ui.ace', [])
           onBlur: function (callback) {
             return function () {
               executeUserCallback(callback, acee);
-            }
+            };
           }
         };
 
