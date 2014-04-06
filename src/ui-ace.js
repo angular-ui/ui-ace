@@ -151,6 +151,10 @@ angular.module('ui.ace', [])
           };
         }
 
+        // set the options here, even if we try to watch later, if this
+        // line is missing things go wrong (and the tests will also fail)
+        setOptions(acee, session, opts);
+
         // Listen for option updates
         scope.$watch( attrs.uiAce, function() {
           opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
