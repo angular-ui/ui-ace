@@ -56,6 +56,7 @@ Although, _ui-ace_ automatically handles some handy options :
  + _mode_ : to set the mode to use.
  + _onLoad_ : callback when the editor has finished loading (see [below](#ace-instance-direct-access)).
  + _onChange_ : callback when the editor content is changed ().
+ + _onBlur_ : callback when the editor is blurred ().
 
 ```html
 <div ui-ace="{
