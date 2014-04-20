@@ -220,7 +220,17 @@ angular.module('ui.ace', [])
           });
 
           ngModel.$render = function () {
-            session.setValue(ngModel.$viewValue);
+            var text = ngModel.$viewValue;
+
+            try {
+              // check if the text is a json and prettify it
+              var obj = JSON.parse(text);
+              text = JSON.stringify(obj, null, '\t');
+            } catch(e) {
+
+            }
+
+            session.setValue(text);
           };
         }
 
