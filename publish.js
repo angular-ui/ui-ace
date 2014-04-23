@@ -29,6 +29,8 @@ module.exports = function() {
     inlineJS : fs.readFileSync(__dirname + '/demo/demo.js'),
     css: css_dependencies.map(putThemInVendorDir).concat(['demo/demo.css']),
     js : js_dependencies.map(putThemInVendorDir).concat(['dist/ui-ace.min.js']),
-    tocopy : css_dependencies.concat(js_dependencies)
+    tocopy : css_dependencies.concat(js_dependencies),
+
+    bowerData : { main: './ui-ace.js'}
   };
 };
