@@ -166,3 +166,16 @@ It's equal to run separately:
 * `grunt karma:server` : giving you a Karma server to run tests (at [http://localhost:9876/](http://localhost:9876/) by default). You can force a test on this server with `grunt karma:unit:run`.
 
 * `grunt watch` : will automatically test your code and build your demo.  You can demo generation with `grunt build:gh-pages`.
+
+
+### Dist
+
+This repo is using the [angular-ui/angular-ui-publisher](https://github.com/angular-ui/angular-ui-publisher).
+New tags will automatically trigger a new publication.
+To test is locally you can trigger a :
+
+```sh
+grunt dist build:bower
+```
+
+it will put the final files in the _'dist'_ folder and a sample of the bower tag output in the _'out/built/bower'_ folder.
