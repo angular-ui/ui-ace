@@ -48,7 +48,7 @@ angular.module('ui.ace', [])
       }
 
       if (angular.isDefined(opts.useAnnotations)) {
-	    session.setOption("useWorker", opts.useAnnotations);
+	    session.setOption('useWorker', opts.useAnnotations);
 	  }
 
       // commands
