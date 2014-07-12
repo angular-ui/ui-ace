@@ -47,6 +47,10 @@ angular.module('ui.ace', [])
         session.setUseSoftTabs(opts.useSoftTabs);
       }
 
+      if (angular.isDefined(opts.useAnnotations)) {
+	    session.setOption("useWorker", opts.useAnnotations);
+	  }
+
       // commands
       if (angular.isDefined(opts.disableSearch) && opts.disableSearch) {
         acee.commands.addCommands([
