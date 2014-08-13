@@ -57,6 +57,7 @@ Although, _ui-ace_ automatically handles some handy options :
  + _onLoad_ : callback when the editor has finished loading (see [below](#ace-instance-direct-access)).
  + _onChange_ : callback when the editor content is changed ().
  + _onBlur_ : callback when the editor is blurred ().
+ + _firstLineNumber_ : to set the firstLineNumber (default: 1)
 
 ```html
 <div ui-ace="{
@@ -64,6 +65,7 @@ Although, _ui-ace_ automatically handles some handy options :
   showGutter: false,
   theme:'twilight',
   mode: 'xml',
+  firstLineNumber: 5
   onLoad: aceLoaded,
   onChange: aceChanged
 }"></div>
