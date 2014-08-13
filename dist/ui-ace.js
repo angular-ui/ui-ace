@@ -67,6 +67,14 @@ angular.module('ui.ace', []).constant('uiAceConfig', {}).directive('uiAce', [
       if (angular.isString(opts.mode)) {
         session.setMode('ace/mode/' + opts.mode);
       }
+      // Advanced options
+      if (angular.isDefined(opts.firstLineNumber)) {
+        if (angular.isNumber(opts.firstLineNumber)) {
+          session.setOption('firstLineNumber', opts.firstLineNumber);
+        } else if (angular.isFunction(opts.firstLineNumber)) {
+          session.setOption('firstLineNumber', opts.firstLineNumber());
+        }
+      }
     };
     return {
       restrict: 'EA',
