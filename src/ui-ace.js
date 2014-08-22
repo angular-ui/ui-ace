@@ -1,5 +1,5 @@
 'use strict';
-
+var ace = window.ace = window.ace || { };
 /**
  * Binds a ACE Editor widget
  */
