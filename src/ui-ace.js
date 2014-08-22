@@ -29,7 +29,12 @@ angular.module('ui.ace', [])
      * @param {object} opts Options to be set
      */
     var setOptions = function(acee, session, opts) {
-
+      // ace requires loading
+      if (angular.isDefined(opts.require)) {
+        opts.require.forEach(function (n) {
+            window.ace.require(n);
+        });
+      }
       // Boolean options
       if (angular.isDefined(opts.showGutter)) {
         acee.renderer.setShowGutter(opts.showGutter);
@@ -83,6 +88,16 @@ angular.module('ui.ace', [])
         } else if (angular.isFunction(opts.firstLineNumber)) {
           session.setOption('firstLineNumber', opts.firstLineNumber());
         }
+      }
+
+      // advanced options
+      if (angular.isDefined(opts.advanced)) {
+          for (var key in opts.advanced) {
+              // create a javascript object with the key and value
+              var obj = { name: key, value: opts.advanced[key] };
+              // try to assign the option to the ace editor
+              acee.setOption(obj.name, obj.value);
+          }
       }
     };
 
