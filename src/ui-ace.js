@@ -237,7 +237,8 @@ angular.module('ui.ace', [])
         setOptions(acee, session, opts);
 
         // Listen for option updates
-        scope.$watch( attrs.uiAce, function() {
+        scope.$watch( attrs.uiAce, function(current, previous) {
+          if (current === previous) return;
           opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
 
           // unbind old change listener
