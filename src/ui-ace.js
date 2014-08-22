@@ -28,10 +28,10 @@ angular.module('ui.ace', [])
          * @param session ACE editor session
          * @param {object} opts Options to be set
          */
-        var setOptions = function (acee, session, opts) {
+        var setOptions = function(acee, session, opts) {
             // ace requires loading
-            if(angular.isDefined(opts.require)){
-                opts.require.forEach(function(n){
+            if (angular.isDefined(opts.require)) {
+                opts.require.forEach(function (n) {
                     ace.require(n);
                 });
             }
@@ -81,7 +81,7 @@ angular.module('ui.ace', [])
             if (angular.isString(opts.mode)) {
                 session.setMode('ace/mode/' + opts.mode);
             }
-            // first line number
+            // Advanced options
             if (angular.isDefined(opts.firstLineNumber)) {
                 if (angular.isNumber(opts.firstLineNumber)) {
                     session.setOption('firstLineNumber', opts.firstLineNumber);
@@ -89,9 +89,8 @@ angular.module('ui.ace', [])
                     session.setOption('firstLineNumber', opts.firstLineNumber());
                 }
             }
-
             // advanced options
-            if(angular.isDefined(opts.advanced)){
+            if (angular.isDefined(opts.advanced)) {
                 for (var key in opts.advanced) {
                     // create a javascript object with the key and value
                     var obj = { name: key, value: opts.advanced[key] };
@@ -252,8 +251,7 @@ angular.module('ui.ace', [])
                 setOptions(acee, session, opts);
 
                 // Listen for option updates
-                scope.$watch(attrs.uiAce, function (current, previous) {
-                    if (current === previous) return;
+                scope.$watch( attrs.uiAce, function() {
                     opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
 
                     // unbind old change listener
@@ -272,7 +270,7 @@ angular.module('ui.ace', [])
                     acee.on('blur', onBlurListener);
 
                     setOptions(acee, session, opts);
-                }, /* deep watch */ true);
+                }, /* deep watch */ true );
 
                 // EVENTS
                 onChangeListener = listenerFactory.onChange(opts.onChange);
@@ -286,9 +284,9 @@ angular.module('ui.ace', [])
                     acee.destroy();
                 });
 
-                scope.$watch(function () {
+                scope.$watch(function() {
                     return [elm[0].offsetWidth, elm[0].offsetHeight];
-                }, function () {
+                }, function() {
                     acee.resize();
                     acee.renderer.updateFull();
                 }, true);
