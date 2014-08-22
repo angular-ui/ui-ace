@@ -90,6 +90,28 @@ myAppModule.controller('MyController', [ '$scope', function($scope) {
 
 To handle other options you'll have to use a direct access to the Ace created instance (see [below](#ace-instance-direct-access)).
 
+## Advanced Options
+
+You can specify advanced options and even `require` options in the directive, as well. For this example, you
+will have to include the `ext-language_tools.js` file from the ace source code.
+
+This will copy the UI.Ace files into a `bower_components` folder, along with its dependencies. Load the script files in your application:
+
+```html
+<script type="text/javascript" src="bower_components/ace-builds/src-min-noconflict/ext-language_tools.js"></script>
+```
+
+```html
+<div ui-ace="{
+  require: ['ace/ext/language_tools'],
+  advanced: {
+      enableSnippets: true,
+      enableBasicAutocompletion: true,
+      enableLiveAutocompletion: true
+  }
+}"></div>
+```
+
 ### Working with ng-model
 
 The ui-ace directive plays nicely with ng-model.
