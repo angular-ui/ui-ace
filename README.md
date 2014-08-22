@@ -90,6 +90,7 @@ myAppModule.controller('MyController', [ '$scope', function($scope) {
 
 To handle other options you'll have to use a direct access to the Ace created instance (see [below](#ace-instance-direct-access)) or use the advanced options property.
 
+
 ## Advanced Options
 
 You can specify advanced options and even `require` options in the directive, as well. For this example, you
@@ -111,6 +112,7 @@ This will copy the UI.Ace files into a `bower_components` folder, along with its
   }
 }"></div>
 ```
+
 
 ### Working with ng-model
 
