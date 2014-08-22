@@ -1,5 +1,4 @@
 'use strict';
-var ace = window.ace = window.ace || { };
 /**
  * Binds a ACE Editor widget
  */
@@ -32,7 +31,7 @@ angular.module('ui.ace', [])
             // ace requires loading
             if (angular.isDefined(opts.require)) {
                 opts.require.forEach(function (n) {
-                    ace.require(n);
+                    window.ace.require(n);
                 });
             }
             // Boolean options
