@@ -192,7 +192,9 @@ angular.module('ui.ace', []).constant('uiAceConfig', {}).directive('uiAce', [
         // line is missing things go wrong (and the tests will also fail)
         setOptions(acee, session, opts);
         // Listen for option updates
-        scope.$watch(attrs.uiAce, function () {
+        scope.$watch(attrs.uiAce, function (current, previous) {
+          if (current === previous)
+            return;
           opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
           // unbind old change listener
           session.removeListener('change', onChangeListener);
