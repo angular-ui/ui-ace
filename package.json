@@ -27,6 +27,7 @@
     "karma-requirejs": "~0.2.0",
     "karma-phantomjs-launcher": "~0.1.1",
     "karma": "~0.10.8",
+    "karma-coverage": "~0.2.6",
     "grunt-conventional-changelog": "~1.0.0",
     "grunt-ngmin": "0.0.3",
     "grunt-contrib-connect": "~0.5.0"
