@@ -1,4 +1,4 @@
-# UI.Ace directive [![Build Status](https://travis-ci.org/angular-ui/ui-ace.png)](https://travis-ci.org/angular-ui/ui-ace)
+# UI.Ace directive [![Build Status](https://travis-ci.org/angular-ui/ui-ace.svg)](https://travis-ci.org/angular-ui/ui-ace)
 
 This directive allows you to add [ACE](http://ajaxorg.github.io/ace/) editor elements.
 
