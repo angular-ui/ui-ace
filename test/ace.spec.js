@@ -8,7 +8,6 @@ describe('uiAce', function () {
   beforeEach(inject(function (uiAceConfig) {
     uiConfig = uiAceConfig;
     uiConfig.ace = {showGutter: false};
-
   }));
 
   // inject in angular constructs. Injector knows about leading/trailing underscores and does the right thing
@@ -20,6 +19,19 @@ describe('uiAce', function () {
 
   afterEach(function () {
     uiConfig = {};
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      _ace = window.ace;
+      spyOn(window.ace, 'require');
+    });
+    it('should not call window.ace.require if there is no "require" option', function () {
+      $compile('<div ui-ace>')(scope);
+      expect(_ace.require).not.toHaveBeenCalled();
+    })
   });
 
   describe('behavior', function () {
