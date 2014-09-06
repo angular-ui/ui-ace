@@ -49,6 +49,24 @@ describe('uiAce', function () {
   });
 
   describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      var aceEditFunction = window.ace.edit;
+      spyOn(window.ace, 'edit').andCallFake(function () {
+        _ace = aceEditFunction.apply(this, arguments);
+        return _ace;
+      });
+    });
+    it('should not call "setOption" if no "advanced" options are given.', function () {
+      $compile('<div ui-ace>')(scope);
+      var session = _ace.getSession();
+      spyOn(session, 'setOption');
+      expect(session.setOption).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('behavior', function () {
 
     it('should not throw an error when window.ace is defined', function () {
       function compile() {
