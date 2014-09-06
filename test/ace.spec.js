@@ -67,6 +67,44 @@ describe('uiAce', function () {
   });
 
   describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      var aceEditFunction = window.ace.edit;
+      spyOn(window.ace, 'edit').andCallFake(function () {
+        _ace = aceEditFunction.apply(this, arguments);
+        return _ace;
+      });
+    });
+    it('Given advanced option is null if not defined.', function () {
+      $compile('<div ui-ace>')(scope);
+      var session = _ace.getSession();
+      spyOn(session, 'getOption');
+      expect(session.getOption).toBeDefined();
+      expect(session.getOption('enableSnippets')).not.toBeDefined();
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      var aceEditFunction = window.ace.edit;
+      spyOn(window.ace, 'edit').andCallFake(function () {
+        _ace = aceEditFunction.apply(this, arguments);
+        return _ace;
+      });
+    });
+    it('given advanced options are properly defined.', function () {
+      $compile('<div ui-ace=\'{ advanced: { enableSnippets: true  } }\'>')(scope);
+      var session = _ace.getSession();
+      spyOn(session, 'getOption');
+      expect(session.getOption).toBeDefined();
+      expect(session.getOption('enableSnippets')).not.toBe(null);
+    });
+  });
+
+  describe('behavior', function () {
 
     it('should not throw an error when window.ace is defined', function () {
       function compile() {
