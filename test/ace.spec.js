@@ -31,6 +31,20 @@ describe('uiAce', function () {
     it('should not call window.ace.require if there is no "require" option', function () {
       $compile('<div ui-ace>')(scope);
       expect(_ace.require).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      _ace = window.ace;
+      spyOn(window.ace, 'require');
+    });
+    it('should call "window.ace.require" for each option in "require"', function () {
+      $compile('<div ui-ace="{ require: [\'ace/ext/language_tools\']}>')(scope);
+      scope.$apply();
+      expect(_ace.require).toHaveBeenCalled();
     })
   });
 
