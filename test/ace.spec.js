@@ -35,20 +35,6 @@ describe('uiAce', function () {
   });
 
   describe('behavior', function () {
-    var _ace;
-
-    beforeEach(function () {
-      _ace = window.ace;
-      spyOn(window.ace, 'require');
-    });
-    it('should call "window.ace.require" for each option in "require"', function () {
-      $compile('<div ui-ace="{ require: [\'ace/ext/language_tools\']}>')(scope);
-      scope.$apply();
-      expect(_ace.require).toHaveBeenCalled();
-    })
-  });
-
-  describe('behavior', function () {
 
     it('should not throw an error when window.ace is defined', function () {
       function compile() {
