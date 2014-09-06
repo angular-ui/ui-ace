@@ -120,7 +120,6 @@ describe('uiAce', function () {
       $compile('<div ui-ace ng-model="foo">')(scope);
       expect(scope.$watch).toHaveBeenCalled();
     });
-
   });
 
   describe('instance', function () {
