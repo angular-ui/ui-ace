@@ -8,7 +8,6 @@ describe('uiAce', function () {
   beforeEach(inject(function (uiAceConfig) {
     uiConfig = uiAceConfig;
     uiConfig.ace = {showGutter: false};
-
   }));
 
   // inject in angular constructs. Injector knows about leading/trailing underscores and does the right thing
@@ -20,6 +19,89 @@ describe('uiAce', function () {
 
   afterEach(function () {
     uiConfig = {};
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      _ace = window.ace;
+      spyOn(window.ace, 'require');
+    });
+    it('should not call window.ace.require if there is no "require" option', function () {
+      $compile('<div ui-ace>')(scope);
+      expect(_ace.require).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      _ace = window.ace;
+      spyOn(window.ace, 'require');
+    });
+    it('should call "window.ace.require" for each option in "require"', function () {
+      $compile('<div ui-ace=\'{ require: ["ace/ext/language_tools", "ace/ext/static_highlight"]}\'>')(scope);
+      expect(_ace.require).toHaveBeenCalled();
+      expect(_ace.require.callCount).toEqual(2);
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      var aceEditFunction = window.ace.edit;
+      spyOn(window.ace, 'edit').andCallFake(function () {
+        _ace = aceEditFunction.apply(this, arguments);
+        return _ace;
+      });
+    });
+    it('should not call "setOption" if no "advanced" options are given.', function () {
+      $compile('<div ui-ace>')(scope);
+      var session = _ace.getSession();
+      spyOn(session, 'setOption');
+      expect(session.setOption).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      var aceEditFunction = window.ace.edit;
+      spyOn(window.ace, 'edit').andCallFake(function () {
+        _ace = aceEditFunction.apply(this, arguments);
+        return _ace;
+      });
+    });
+    it('Given advanced option is null if not defined.', function () {
+      $compile('<div ui-ace>')(scope);
+      var session = _ace.getSession();
+      spyOn(session, 'getOption');
+      expect(session.getOption).toBeDefined();
+      expect(session.getOption('enableSnippets')).not.toBeDefined();
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      var aceEditFunction = window.ace.edit;
+      spyOn(window.ace, 'edit').andCallFake(function () {
+        _ace = aceEditFunction.apply(this, arguments);
+        return _ace;
+      });
+    });
+    it('given advanced options are properly defined.', function () {
+      $compile('<div ui-ace=\'{ advanced: { enableSnippets: true  } }\'>')(scope);
+      var session = _ace.getSession();
+      spyOn(session, 'getOption');
+      expect(session.getOption).toBeDefined();
+      expect(session.getOption('enableSnippets')).not.toBe(null);
+    });
   });
 
   describe('behavior', function () {
@@ -38,7 +120,6 @@ describe('uiAce', function () {
       $compile('<div ui-ace ng-model="foo">')(scope);
       expect(scope.$watch).toHaveBeenCalled();
     });
-
   });
 
   describe('instance', function () {
