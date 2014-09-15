@@ -28,6 +28,52 @@ describe('uiAce', function () {
       _ace = window.ace;
       spyOn(window.ace, 'require');
     });
+    it('should not call ace/config if a workerPath is not defined', function () {
+      $compile('<div ui-ace>')(scope);
+      expect(_ace.require).not.toHaveBeenCalledWith('ace/config');
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace, _config;
+
+    beforeEach(function () {
+      _ace = window.ace;
+      _config = {
+        set: function() { return true; }
+      };
+      spyOn(window.ace, 'require').andReturn(_config);
+    });
+    it('should call ace/config if a workerPath is defined', function () {
+      $compile('<div ui-ace=\'{ workerPath: "/path/to/ace" }\'>')(scope);
+      expect(_ace.require).toHaveBeenCalledWith('ace/config');
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace, _config;
+
+    beforeEach(function () {
+      _ace = window.ace;
+      _config = {
+        set: function() { return true; }
+      };
+      spyOn(window.ace, 'require').andReturn(_config);
+      spyOn(_config, 'set');
+    });
+    it('should call "set" if workerPath is defined', function () {
+      $compile('<div ui-ace=\'{ workerPath: "/path/to/ace" }\'>')(scope);
+      expect(_config.set).toHaveBeenCalled();
+    });
+  });
+
+  describe('behavior', function () {
+    var _ace;
+
+    beforeEach(function () {
+      _ace = window.ace;
+      spyOn(window.ace, 'require');
+    });
     it('should not call window.ace.require if there is no "require" option', function () {
       $compile('<div ui-ace>')(scope);
       expect(_ace.require).not.toHaveBeenCalled();

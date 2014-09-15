@@ -29,6 +29,13 @@ angular.module('ui.ace', [])
      * @param {object} opts Options to be set
      */
     var setOptions = function(acee, session, opts) {
+
+      // sets the ace worker path, if running from concatenated
+      // or minified source
+      if (angular.isDefined(opts.workerPath)) {
+        var config = window.ace.require('ace/config');
+        config.set('workerPath', opts.workerPath);
+      }
       // ace requires loading
       if (angular.isDefined(opts.require)) {
         opts.require.forEach(function (n) {
