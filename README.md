@@ -112,6 +112,19 @@ This will copy the UI.Ace files into a `bower_components` folder, along with its
 }"></div>
 ```
 
+## Support for concatenated bundles
+
+Trying to use ace with concatenated javascript files usually fails because it changes the physical location of the `workerPath`. If you
+need to work with bundled or minified versions of ace, you can specify the original location of the `workerPath` on disk (_not the bundled file_).
+
+This should be the folder on disk where `ace.js` resides.
+
+```html
+<div ui-ace="{
+  workerPath: '/path/to/ace/folder'
+}"></div>
+```
+
 ### Working with ng-model
 
 The ui-ace directive plays nicely with ng-model.
