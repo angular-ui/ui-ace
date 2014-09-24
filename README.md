@@ -65,7 +65,7 @@ Although, _ui-ace_ automatically handles some handy options :
   showGutter: false,
   theme:'twilight',
   mode: 'xml',
-  firstLineNumber: 5
+  firstLineNumber: 5,
   onLoad: aceLoaded,
   onChange: aceChanged
 }"></div>
