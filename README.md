@@ -112,6 +112,16 @@ This will copy the UI.Ace files into a `bower_components` folder, along with its
 }"></div>
 ```
 
+To include options applicable to the ACE renderer, you can use the `rendererOptions` key:
+
+```html
+<div ui-ace="{
+  rendererOptions: {
+      maxLinks: Infinity
+  }
+}"></div>
+```
+
 ### Working with ng-model
 
 The ui-ace directive plays nicely with ng-model.
