@@ -91,12 +91,23 @@ angular.module('ui.ace', [])
       }
 
       // advanced options
+      var key, obj;
       if (angular.isDefined(opts.advanced)) {
-          for (var key in opts.advanced) {
+          for (key in opts.advanced) {
               // create a javascript object with the key and value
-              var obj = { name: key, value: opts.advanced[key] };
+              obj = { name: key, value: opts.advanced[key] };
               // try to assign the option to the ace editor
               acee.setOption(obj.name, obj.value);
+          }
+      }
+
+      // advanced options for the renderer
+      if (angular.isDefined(opts.rendererOptions)) {
+          for (key in opts.rendererOptions) {
+              // create a javascript object with the key and value
+              obj = { name: key, value: opts.rendererOptions[key] };
+              // try to assign the option to the ace editor
+              acee.renderer.setOption(obj.name, obj.value);
           }
       }
     };
