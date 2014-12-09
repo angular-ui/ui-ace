@@ -207,11 +207,10 @@ angular.module('ui.ace', [])
           onChange: function (callback) {
             return function (e) {
               var newValue = session.getValue();
-              if (newValue !== scope.$eval(attrs.value) && !scope.$$phase && !scope.$root.$$phase) {
+              if (newValue !== scope.$eval(attrs.value)) {
                 if (angular.isDefined(ngModel)) {
-                  scope.$apply(function () {
-                    ngModel.$setViewValue(newValue);
-                  });
+                  ngModel.$setViewValue(newValue);
+                  !scope.$$phase && !scope.$root.$$phase && scope.$digest();
                 }
                 executeUserCallback(callback, e, acee);
               }

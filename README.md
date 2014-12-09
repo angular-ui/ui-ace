@@ -4,7 +4,7 @@ This directive allows you to add [ACE](http://ajaxorg.github.io/ace/) editor ele
 
 ## Requirements
 
-- AngularJS
+- AngularJS >=1.1.0
 - [Ace 1.x](https://github.com/ajaxorg/ace-builds/)
 
 

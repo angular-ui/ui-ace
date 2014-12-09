@@ -29,7 +29,7 @@ describe('uiAce', function () {
       spyOn(window.ace, 'require');
     });
     it('should not call ace/config if a workerPath is not defined', function () {
-      $compile('<div ui-ace>')(scope);
+      $compile('<div ui-ace ng-model="content">')(scope);
       expect(_ace.require).not.toHaveBeenCalledWith('ace/config');
     });
   });
@@ -45,7 +45,7 @@ describe('uiAce', function () {
       spyOn(window.ace, 'require').andReturn(_config);
     });
     it('should call ace/config if a workerPath is defined', function () {
-      $compile('<div ui-ace=\'{ workerPath: "/path/to/ace" }\'>')(scope);
+      $compile('<div ui-ace=\'{ workerPath: "/path/to/ace" }\' ng-model="content">' )(scope);
       expect(_ace.require).toHaveBeenCalledWith('ace/config');
     });
   });
@@ -62,7 +62,7 @@ describe('uiAce', function () {
       spyOn(_config, 'set');
     });
     it('should call "set" if workerPath is defined', function () {
-      $compile('<div ui-ace=\'{ workerPath: "/path/to/ace" }\'>')(scope);
+      $compile('<div ui-ace=\'{ workerPath: "/path/to/ace" }\' ng-model="content">')(scope);
       expect(_config.set).toHaveBeenCalled();
     });
   });
@@ -75,7 +75,7 @@ describe('uiAce', function () {
       spyOn(window.ace, 'require');
     });
     it('should not call window.ace.require if there is no "require" option', function () {
-      $compile('<div ui-ace>')(scope);
+      $compile('<div ui-ace ng-model="content">')(scope);
       expect(_ace.require).not.toHaveBeenCalled();
     });
   });
@@ -88,7 +88,7 @@ describe('uiAce', function () {
       spyOn(window.ace, 'require');
     });
     it('should call "window.ace.require" for each option in "require"', function () {
-      $compile('<div ui-ace=\'{ require: ["ace/ext/language_tools", "ace/ext/static_highlight"]}\'>')(scope);
+      $compile('<div ui-ace=\'{ require: ["ace/ext/language_tools", "ace/ext/static_highlight"]}\' ng-model="content">')(scope);
       expect(_ace.require).toHaveBeenCalled();
       expect(_ace.require.callCount).toEqual(2);
     });
@@ -105,7 +105,7 @@ describe('uiAce', function () {
       });
     });
     it('should not call "setOption" if no "advanced" options are given.', function () {
-      $compile('<div ui-ace>')(scope);
+      $compile('<div ui-ace ng-model="content">')(scope);
       var session = _ace.getSession();
       spyOn(session, 'setOption');
       expect(session.setOption).not.toHaveBeenCalled();
@@ -123,7 +123,7 @@ describe('uiAce', function () {
       });
     });
     it('Given advanced option is null if not defined.', function () {
-      $compile('<div ui-ace>')(scope);
+      $compile('<div ui-ace ng-model="content">')(scope);
       var session = _ace.getSession();
       spyOn(session, 'getOption');
       expect(session.getOption).toBeDefined();
@@ -142,7 +142,7 @@ describe('uiAce', function () {
       });
     });
     it('given advanced options are properly defined.', function () {
-      $compile('<div ui-ace=\'{ advanced: { enableSnippets: true  } }\'>')(scope);
+      $compile('<div ui-ace=\'{ advanced: { enableSnippets: true  } }\' ng-model="content">')(scope);
       var session = _ace.getSession();
       spyOn(session, 'getOption');
       expect(session.getOption).toBeDefined();
@@ -154,7 +154,7 @@ describe('uiAce', function () {
 
     it('should not throw an error when window.ace is defined', function () {
       function compile() {
-        $compile('<div ui-ace>')(scope);
+        $compile('<div ui-ace ng-model="content">')(scope);
       }
 
       expect(compile).not.toThrow();
@@ -163,7 +163,7 @@ describe('uiAce', function () {
 
     it('should watch the uiAce attribute', function () {
       spyOn(scope, '$watch');
-      $compile('<div ui-ace ng-model="foo">')(scope);
+      $compile('<div ui-ace ng-model="content">')(scope);
       expect(scope.$watch).toHaveBeenCalled();
     });
   });
@@ -181,21 +181,21 @@ describe('uiAce', function () {
     });
 
     it('should call ace.edit', function () {
-      $compile('<div ui-ace>')(scope);
+      $compile('<div ui-ace ng-model="content">')(scope);
       expect(_ace).toBeDefined();
     });
 
     describe('options', function () {
       describe('passed', function () {
         it('should show the showGutter', function () {
-          $compile('<div ui-ace="{showGutter:true}">')(scope);
+          $compile('<div ui-ace="{showGutter:true}" ng-model="content">')(scope);
           expect(_ace.renderer).toBeDefined();
           expect(_ace.renderer.getShowGutter()).toBeTruthy();
         });
       });
       describe('global', function () {
         it('should hide the showGutter', function () {
-          $compile('<div ui-ace>')(scope);
+          $compile('<div ui-ace ng-model="content">')(scope);
           expect(_ace.renderer).toBeDefined();
           expect(_ace.renderer.getShowGutter()).toBeFalsy();
         });
@@ -205,7 +205,7 @@ describe('uiAce', function () {
           scope.aceLoaded = function () {
           };
           spyOn(scope, 'aceLoaded');
-          $compile('<div ui-ace="{onLoad: aceLoaded}">')(scope);
+          $compile('<div ui-ace="{onLoad: aceLoaded}" ng-model="content">')(scope);
           expect(scope.aceLoaded).toHaveBeenCalled();
           expect(scope.aceLoaded).toHaveBeenCalledWith(_ace);
         });
@@ -214,21 +214,21 @@ describe('uiAce', function () {
 
     describe('readOnly', function () {
       it('should read only option true', function () {
-        $compile('<div ui-ace readonly="true">')(scope);
+        $compile('<div ui-ace readonly="true" ng-model="content">')(scope);
         scope.$apply();
         expect(_ace.getReadOnly()).toBeTruthy();
-        $compile('<div ui-ace readonly="{{foo}}">')(scope);
+        $compile('<div ui-ace readonly="{{foo}}" ng-model="content">')(scope);
         scope.$apply('foo = true');
         expect(_ace.getReadOnly()).toBeTruthy();
       });
       it('should read only option false', function () {
-        $compile('<div ui-ace>')(scope);
+        $compile('<div ui-ace ng-model="content">')(scope);
         scope.$apply();
         expect(_ace.getReadOnly()).toBeFalsy();
-        $compile('<div ui-ace readonly="false">')(scope);
+        $compile('<div ui-ace readonly="false" ng-model="content">')(scope);
         scope.$apply();
         expect(_ace.getReadOnly()).toBeFalsy();
-        $compile('<div ui-ace readonly="{{foo}}">')(scope);
+        $compile('<div ui-ace readonly="{{foo}}" ng-model="content">')(scope);
         expect(_ace.getReadOnly()).toBeFalsy();
         scope.$apply('foo = true');
         expect(_ace.getReadOnly()).toBeTruthy();
@@ -285,7 +285,7 @@ describe('uiAce', function () {
     });
 
     it('should call destroy when the element is removed', function () {
-      var element = $compile('<div ui-ace ng-model="foo">')(scope);
+      var element = $compile('<div ui-ace ng-model="content">')(scope);
       spyOn(_ace, 'destroy').andCallThrough();
       spyOn(_ace.session, '$stopWorker').andCallThrough();
 
