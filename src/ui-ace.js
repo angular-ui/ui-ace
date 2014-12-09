@@ -209,9 +209,8 @@ angular.module('ui.ace', [])
               var newValue = session.getValue();
               if (newValue !== scope.$eval(attrs.value)) {
                 if (angular.isDefined(ngModel)) {
-                  scope.$evalAsync(function () {
-                    ngModel.$setViewValue(newValue);
-                  });
+                  ngModel.$setViewValue(newValue);
+                  !scope.$$phase && !scope.$root.$$phase && scope.$digest();
                 }
                 executeUserCallback(callback, e, acee);
               }
