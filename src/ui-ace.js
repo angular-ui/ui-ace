@@ -79,10 +79,12 @@ angular.module('ui.ace', [])
         ]);
       }
 
-      // onLoad callback
-      if (angular.isFunction(opts.onLoad)) {
-        opts.onLoad(acee);
-      }
+      // onLoad callbacks
+      angular.forEach(opts.callbacks, function (cb) {
+        if (angular.isFunction(cb)) {
+          cb(acee);
+        }
+      });
 
       // Basic options
       if (angular.isString(opts.theme)) {
@@ -268,14 +270,18 @@ angular.module('ui.ace', [])
           };
         }
 
-        // set the options here, even if we try to watch later, if this
-        // line is missing things go wrong (and the tests will also fail)
-        setOptions(acee, session, opts);
-
         // Listen for option updates
-        scope.$watch( attrs.uiAce, function(current, previous) {
+        var updateOptions = function (current, previous) {
           if (current === previous) return;
           opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
+
+          opts.callbacks = [ opts.onLoad ];
+          if (opts.onLoad !== options.onLoad) {
+            // also call the global onLoad handler
+            opts.callbacks.unshift(options.onLoad);
+          }
+
+          // EVENTS
 
           // unbind old change listener
           session.removeListener('change', onChangeListener);
@@ -293,14 +299,13 @@ angular.module('ui.ace', [])
           acee.on('blur', onBlurListener);
 
           setOptions(acee, session, opts);
-        }, /* deep watch */ true );
+        };
 
-        // EVENTS
-        onChangeListener = listenerFactory.onChange(opts.onChange);
-        session.on('change', onChangeListener);
+        scope.$watch(attrs.uiAce, updateOptions, /* deep watch */ true);
 
-        onBlurListener = listenerFactory.onBlur(opts.onBlur);
-        acee.on('blur', onBlurListener);
+        // set the options here, even if we try to watch later, if this
+        // line is missing things go wrong (and the tests will also fail)
+        updateOptions(options);
 
         elm.on('$destroy', function () {
           acee.session.$stopWorker();
