@@ -58,6 +58,9 @@ angular.module('ui.ace', [])
       if (angular.isDefined(opts.useSoftTabs)) {
         session.setUseSoftTabs(opts.useSoftTabs);
       }
+      if (angular.isDefined(opts.showPrintMargin)) {
+        acee.setShowPrintMargin(opts.showPrintMargin);
+      }
 
       // commands
       if (angular.isDefined(opts.disableSearch) && opts.disableSearch) {
