@@ -208,7 +208,7 @@ angular.module('ui.ace', [])
             return function (e) {
               var newValue = session.getValue();
               if (newValue !== scope.$eval(attrs.value) && !scope.$$phase && !scope.$root.$$phase) {
-                if (angular.isDefined(ngModel)) {
+                if (ngModel !== null) {
                   scope.$apply(function () {
                     ngModel.$setViewValue(newValue);
                   });
@@ -238,7 +238,7 @@ angular.module('ui.ace', [])
         });
 
         // Value Blind
-        if (angular.isDefined(ngModel)) {
+        if (ngModel !== null) {
           ngModel.$formatters.push(function (value) {
             if (angular.isUndefined(value) || value === null) {
               return '';
