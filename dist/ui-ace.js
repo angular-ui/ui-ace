@@ -26,6 +26,12 @@ angular.module('ui.ace', []).constant('uiAceConfig', {}).directive('uiAce', [
      * @param {object} opts Options to be set
      */
     var setOptions = function (acee, session, opts) {
+      // sets the ace worker path, if running from concatenated
+      // or minified source
+      if (angular.isDefined(opts.workerPath)) {
+        var config = window.ace.require('ace/config');
+        config.set('workerPath', opts.workerPath);
+      }
       // ace requires loading
       if (angular.isDefined(opts.require)) {
         opts.require.forEach(function (n) {
@@ -174,7 +180,7 @@ angular.module('ui.ace', []).constant('uiAceConfig', {}).directive('uiAce', [
               return function (e) {
                 var newValue = session.getValue();
                 if (newValue !== scope.$eval(attrs.value) && !scope.$$phase && !scope.$root.$$phase) {
-                  if (angular.isDefined(ngModel)) {
+                  if (ngModel !== null) {
                     scope.$apply(function () {
                       ngModel.$setViewValue(newValue);
                     });
@@ -193,7 +199,7 @@ angular.module('ui.ace', []).constant('uiAceConfig', {}).directive('uiAce', [
           acee.setReadOnly(value === 'true');
         });
         // Value Blind
-        if (angular.isDefined(ngModel)) {
+        if (ngModel !== null) {
           ngModel.$formatters.push(function (value) {
             if (angular.isUndefined(value) || value === null) {
               return '';
