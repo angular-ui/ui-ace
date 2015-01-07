@@ -27,14 +27,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', fakeTargetTask('build'));
   grunt.registerTask('publish', fakeTargetTask('publish'));
-  //
-
-
-  var testConfig = function (configFile, customOptions) {
-    var options = { configFile: configFile, singleRun: true };
-    var travisOptions = process.env.TRAVIS && { browsers: [ 'Firefox', 'PhantomJS'], reporters: ['dots'] };
-    return grunt.util._.extend(options, customOptions, travisOptions);
-  };
 
   // Project configuration.
   grunt.initConfig({
@@ -69,7 +61,7 @@ module.exports = function (grunt) {
     },
 
     karma: {
-      unit: testConfig('test/karma.conf.js'),
+      unit: {configFile: 'test/karma.conf.js', singleRun: true},
       coverage : {
         configFile: 'test/karma.conf.js',
         reporters: ['progress', 'coverage'],

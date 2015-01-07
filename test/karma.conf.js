@@ -69,4 +69,17 @@ module.exports = function(config) {
     // if true, it capture browsers, run tests and exit
     singleRun: false
   });
+
+
+  if(process.env.TRAVIS){
+    config.set({
+      browsers: ['TravisCI_Chrome', 'Firefox', 'PhantomJS'],
+      customLaunchers: {
+        TravisCI_Chrome: {
+          base: 'Chrome',
+          flags: ['--no-sandbox']
+        }
+      }
+    });
+  }
 };
