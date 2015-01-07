@@ -1,156 +1,106 @@
 describe('uiAce', function () {
   'use strict';
 
-  // declare these up here to be global to all tests
-  var scope, $compile, uiConfig;
+  var scope, $compile,
+    uiConfig;
 
-  beforeEach(module('ui.ace'));
-  beforeEach(inject(function (uiAceConfig) {
-    uiConfig = uiAceConfig;
-    uiConfig.ace = {showGutter: false};
-  }));
+  beforeEach(function () {
 
-  // inject in angular constructs. Injector knows about leading/trailing underscores and does the right thing
-  // otherwise, you would need to inject these into each test
-  beforeEach(inject(function (_$rootScope_, _$compile_) {
-    scope = _$rootScope_.$new();
-    $compile = _$compile_;
-  }));
+    module('ui.ace');
+
+    inject(function (_$rootScope_, _$compile_, uiAceConfig) {
+      scope = _$rootScope_.$new();
+      $compile = _$compile_;
+      uiConfig = uiAceConfig;
+      uiConfig.ace = { showGutter: false };
+    });
+  });
 
   afterEach(function () {
     uiConfig = {};
   });
 
-  describe('behavior', function () {
-    var _ace;
+  describe('require', function () {
+    var aceRequireFunction;
 
     beforeEach(function () {
-      _ace = window.ace;
-      spyOn(window.ace, 'require');
+      aceRequireFunction = window.ace.edit;
+      window.ace.require = jasmine
+        .createSpy('window.ace.require');
     });
+
+    afterEach(function () {
+      window.ace.require = aceRequireFunction;
+    });
+
+    it('should not call window.ace.require if there is no "require" option', function () {
+      $compile('<div ui-ace>')(scope);
+      expect(window.ace.require).not.toHaveBeenCalled();
+    });
+
     it('should not call ace/config if a workerPath is not defined', function () {
       $compile('<div ui-ace>')(scope);
-      expect(_ace.require).not.toHaveBeenCalledWith('ace/config');
+      expect(window.ace.require).not.toHaveBeenCalledWith('ace/config');
     });
-  });
 
-  describe('behavior', function () {
-    var _ace, _config;
-
-    beforeEach(function () {
-      _ace = window.ace;
-      _config = {
-        set: function() { return true; }
-      };
-      spyOn(window.ace, 'require').andReturn(_config);
-    });
     it('should call ace/config if a workerPath is defined', function () {
+      window.ace.require
+        .and.returnValue({
+          set: function () {}
+        });
+      ////
       $compile('<div ui-ace=\'{ workerPath: "/path/to/ace" }\'>')(scope);
-      expect(_ace.require).toHaveBeenCalledWith('ace/config');
+      expect(window.ace.require).toHaveBeenCalledWith('ace/config');
     });
-  });
 
-  describe('behavior', function () {
-    var _ace, _config;
-
-    beforeEach(function () {
-      _ace = window.ace;
-      _config = {
-        set: function() { return true; }
-      };
-      spyOn(window.ace, 'require').andReturn(_config);
-      spyOn(_config, 'set');
-    });
     it('should call "set" if workerPath is defined', function () {
+      var _config = jasmine.createSpyObj('config', ['set']);
+      window.ace.require.and.returnValue(_config);
+      ////
       $compile('<div ui-ace=\'{ workerPath: "/path/to/ace" }\'>')(scope);
       expect(_config.set).toHaveBeenCalled();
     });
-  });
 
-  describe('behavior', function () {
-    var _ace;
-
-    beforeEach(function () {
-      _ace = window.ace;
-      spyOn(window.ace, 'require');
-    });
-    it('should not call window.ace.require if there is no "require" option', function () {
-      $compile('<div ui-ace>')(scope);
-      expect(_ace.require).not.toHaveBeenCalled();
-    });
-  });
-
-  describe('behavior', function () {
-    var _ace;
-
-    beforeEach(function () {
-      _ace = window.ace;
-      spyOn(window.ace, 'require');
-    });
     it('should call "window.ace.require" for each option in "require"', function () {
       $compile('<div ui-ace=\'{ require: ["ace/ext/language_tools", "ace/ext/static_highlight"]}\'>')(scope);
-      expect(_ace.require).toHaveBeenCalled();
-      expect(_ace.require.callCount).toEqual(2);
+      expect(window.ace.require).toHaveBeenCalled();
+      expect(window.ace.require.calls.count()).toEqual(2);
     });
   });
 
-  describe('behavior', function () {
-    var _ace;
+  describe('options', function () {
+    var _ace, aceEditFunction;
 
     beforeEach(function () {
-      var aceEditFunction = window.ace.edit;
-      spyOn(window.ace, 'edit').andCallFake(function () {
-        _ace = aceEditFunction.apply(this, arguments);
-        return _ace;
-      });
+      aceEditFunction = window.ace.edit;
+      window.ace.edit = jasmine
+        .createSpy('window.ace.edit')
+        .and.callFake(function () {
+          _ace = aceEditFunction.apply(this, arguments);
+          _ace.setOption = jasmine
+            .createSpy('ace.setOption')
+            .and.callThrough();
+          return _ace;
+        });
     });
-    it('should not call "setOption" if no "advanced" options are given.', function () {
-      $compile('<div ui-ace>')(scope);
-      var session = _ace.getSession();
-      spyOn(session, 'setOption');
-      expect(session.setOption).not.toHaveBeenCalled();
-    });
-  });
 
-  describe('behavior', function () {
-    var _ace;
-
-    beforeEach(function () {
-      var aceEditFunction = window.ace.edit;
-      spyOn(window.ace, 'edit').andCallFake(function () {
-        _ace = aceEditFunction.apply(this, arguments);
-        return _ace;
-      });
+    afterEach(function () {
+      window.ace.edit = aceEditFunction;
     });
+
     it('Given advanced option is null if not defined.', function () {
       $compile('<div ui-ace>')(scope);
-      var session = _ace.getSession();
-      spyOn(session, 'getOption');
-      expect(session.getOption).toBeDefined();
-      expect(session.getOption('enableSnippets')).not.toBeDefined();
+      expect(_ace.setOption.calls.count()).toEqual(0);
     });
-  });
 
-  describe('behavior', function () {
-    var _ace;
-
-    beforeEach(function () {
-      var aceEditFunction = window.ace.edit;
-      spyOn(window.ace, 'edit').andCallFake(function () {
-        _ace = aceEditFunction.apply(this, arguments);
-        return _ace;
-      });
-    });
     it('given advanced options are properly defined.', function () {
       $compile('<div ui-ace=\'{ advanced: { enableSnippets: true  } }\'>')(scope);
-      var session = _ace.getSession();
-      spyOn(session, 'getOption');
-      expect(session.getOption).toBeDefined();
-      expect(session.getOption('enableSnippets')).not.toBe(null);
+      expect(_ace.setOption.calls.count()).toEqual(1);
+      expect(_ace.setOption).toHaveBeenCalledWith('enableSnippets', true);
     });
   });
 
-  describe('behavior', function () {
+  describe('basic behavior', function () {
 
     it('should not throw an error when window.ace is defined', function () {
       function compile() {
@@ -160,7 +110,6 @@ describe('uiAce', function () {
       expect(compile).not.toThrow();
     });
 
-
     it('should watch the uiAce attribute', function () {
       spyOn(scope, '$watch');
       $compile('<div ui-ace ng-model="foo">')(scope);
@@ -169,15 +118,20 @@ describe('uiAce', function () {
   });
 
   describe('instance', function () {
-    var _ace;
-
+    var _ace, aceEditFunction;
 
     beforeEach(function () {
-      var aceEditFunction = window.ace.edit;
-      spyOn(window.ace, 'edit').andCallFake(function () {
-        _ace = aceEditFunction.apply(this, arguments);
-        return _ace;
-      });
+      aceEditFunction = window.ace.edit;
+      window.ace.edit = jasmine
+        .createSpy('window.ace.edit')
+        .and.callFake(function () {
+          _ace = aceEditFunction.apply(this, arguments);
+          return _ace;
+        });
+    });
+
+    afterEach(function () {
+      window.ace.edit = aceEditFunction;
     });
 
     it('should call ace.edit', function () {
@@ -286,8 +240,10 @@ describe('uiAce', function () {
 
     it('should call destroy when the element is removed', function () {
       var element = $compile('<div ui-ace ng-model="foo">')(scope);
-      spyOn(_ace, 'destroy').andCallThrough();
-      spyOn(_ace.session, '$stopWorker').andCallThrough();
+      _ace.destroy = jasmine.createSpy('ace.destroy')
+        .and.callThrough();
+      _ace.session.$stopWorker = jasmine.createSpy('ace.session.$stopWorker')
+        .and.callThrough();
 
       element.remove();
       scope.$apply();
