@@ -136,6 +136,8 @@ describe('uiAce', function () {
         .createSpy('window.ace.edit')
         .and.callFake(function () {
           _ace = aceEditFunction.apply(this, arguments);
+          _ace.setReadOnly = jasmine.createSpy('ace.setReadOnly')
+            .and.callThrough();
           return _ace;
         });
     });
@@ -177,27 +179,40 @@ describe('uiAce', function () {
     });
 
     describe('readOnly', function () {
+
       it('should read only option true', function () {
-        $compile('<div ui-ace readonly="true">')(scope);
+        $compile('<div ui-ace readonly>')(scope);
         scope.$apply();
-        expect(_ace.getReadOnly()).toBeTruthy();
-        $compile('<div ui-ace readonly="{{foo}}">')(scope);
+        expect(_ace.setReadOnly).toHaveBeenCalledWith(true);
+
+        $compile('<div ui-ace ng-readonly="true">')(scope);
+        scope.$apply();
+        expect(_ace.setReadOnly).toHaveBeenCalledWith(true);
+
+        $compile('<div ui-ace ng-readonly="foo">')(scope);
         scope.$apply('foo = true');
-        expect(_ace.getReadOnly()).toBeTruthy();
+        expect(_ace.setReadOnly).toHaveBeenCalledWith(true);
+
       });
+
       it('should read only option false', function () {
         $compile('<div ui-ace>')(scope);
         scope.$apply();
-        expect(_ace.getReadOnly()).toBeFalsy();
-        $compile('<div ui-ace readonly="false">')(scope);
+        expect(_ace.setReadOnly).not.toHaveBeenCalled();
+
+        $compile('<div ui-ace ng-readonly="false">')(scope);
         scope.$apply();
-        expect(_ace.getReadOnly()).toBeFalsy();
-        $compile('<div ui-ace readonly="{{foo}}">')(scope);
-        expect(_ace.getReadOnly()).toBeFalsy();
-        scope.$apply('foo = true');
-        expect(_ace.getReadOnly()).toBeTruthy();
+        expect(_ace.setReadOnly).toHaveBeenCalledWith(false);
+
+        $compile('<div ui-ace ng-readonly="foo">')(scope);
+        scope.$apply();
+        expect(_ace.setReadOnly).toHaveBeenCalledWith(false);
+
+        scope.$apply('foo = null');
+        expect(_ace.setReadOnly).toHaveBeenCalledWith(false);
+
         scope.$apply('foo = false');
-        expect(_ace.getReadOnly()).toBeFalsy();
+        expect(_ace.setReadOnly).toHaveBeenCalledWith(false);
       });
     });
 

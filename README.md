@@ -147,10 +147,10 @@ _The ui-ace directive stores and expects the model value to be a standard javasc
 
 Simple demo
 ```html
-<div ui-ace readonly="true"></div>
+<div ui-ace readonly></div>
 or
 Check me to make Ace readonly: <input type="checkbox" ng-model="checked" ><br/>
-<div ui-ace readonly="{{checked}}"></div>
+<div ui-ace ng-readonly="checked"></div>
 ```
 
 ### Ace instance direct access
