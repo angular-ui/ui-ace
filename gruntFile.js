@@ -136,7 +136,8 @@ module.exports = function (grunt) {
 
     changelog: {
       options: {
-        dest: 'CHANGELOG.md'
+        dest: 'CHANGELOG.md',
+        from: grunt.option('from')
       }
     }
   });
