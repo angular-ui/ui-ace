@@ -216,7 +216,35 @@ describe('uiAce', function () {
 
         var value = 'baz';
         _ace.getSession().setValue(value);
+        scope.$apply();
+
         expect(scope.foo).toBe(value);
+      });
+
+      it('should update the IDE only if different', function () {
+        scope.change = jasmine.createSpy('scope.change');
+
+        $compile('<div ui-ace ng-model="foo" ng-change="change(foo)">')(scope);
+
+        // change shouldn't be called initialy
+        expect(scope.change).not.toHaveBeenCalled();
+
+        // change shouldn't be called when the value change is coming from the model.
+        scope.$apply('foo = "bar"');
+        expect(scope.change).not.toHaveBeenCalled();
+
+        _ace.getSession().setValue('baz');
+        scope.$apply();
+
+        // ace removeText event + ace insertText event
+        expect(scope.change.calls.count()).toBe(2);
+        // ace removeText event
+        expect(scope.change).toHaveBeenCalledWith('');
+        // ace insertText event
+        expect(scope.change).toHaveBeenCalledWith('baz');
+
+        //
+        expect(scope.foo).toBe('baz');
       });
     });
 

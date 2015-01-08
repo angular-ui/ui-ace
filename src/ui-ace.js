@@ -218,13 +218,14 @@ angular.module('ui.ace', [])
           onChange: function (callback) {
             return function (e) {
               var newValue = session.getValue();
-              if (newValue !== scope.$eval(attrs.value)) {
-                if (angular.isDefined(ngModel)) {
+
+              if (ngModel && newValue !== ngModel.$viewValue) {
+                scope.$applyAsync(function () {
                   ngModel.$setViewValue(newValue);
-                  !scope.$$phase && !scope.$root.$$phase && scope.$digest();
-                }
-                executeUserCallback(callback, e, acee);
+                });
               }
+
+              executeUserCallback(callback, e, acee);
             };
           },
           /**
@@ -248,7 +249,7 @@ angular.module('ui.ace', [])
         });
 
         // Value Blind
-        if (ngModel !== null) {
+        if (ngModel) {
           ngModel.$formatters.push(function (value) {
             if (angular.isUndefined(value) || value === null) {
               return '';
