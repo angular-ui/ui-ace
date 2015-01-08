@@ -222,7 +222,11 @@ angular.module('ui.ace', [])
             return function (e) {
               var newValue = session.getValue();
 
-              if (ngModel && newValue !== ngModel.$viewValue) {
+              if (ngModel && newValue !== ngModel.$viewValue &&
+                  // HACK make sure to only trigger the apply outside of the
+                  // digest loop 'cause ACE is actually using this callback
+                  // for any text transformation !
+                  !scope.$$phase && !scope.$root.$$phase) {
                 scope.$applyAsync(function () {
                   ngModel.$setViewValue(newValue);
                 });
