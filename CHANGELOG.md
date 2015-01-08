@@ -1,3 +1,36 @@
+<a name="0.1.3"></a>
+### 0.1.3 (2015-01-08)
+
+
+#### Bug Fixes
+
+* ngModel put back the hack ([415610f0](http://github.com/angular-ui/ui-ace/commit/415610f0dcdc1116267e6aa4045bd5ae356f1fdc))
+* ngModel update ([491369a9](http://github.com/angular-ui/ui-ace/commit/491369a9d508c28ad880ad707e35c3d827c0a71a), closes [#77](http://github.com/angular-ui/ui-ace/issues/77))
+
+
+#### Features
+
+* readonly ng ready ([0d99e5fd](http://github.com/angular-ui/ui-ace/commit/0d99e5fd65a9870617b9010111b72f789e276c8b))
+* add advancedRenderer options ([76fc37d1](http://github.com/angular-ui/ui-ace/commit/76fc37d176ffe1e62dc72da4e85c027446794a64))
+* **config:** always call the global onLoad handler ([c83086ac](http://github.com/angular-ui/ui-ace/commit/c83086ac7be7ff08dd632ab6705c43ba39ca6867))
+* **directive:**
+  * worker path for concatenated and minified configurations ([b7e20c1a](http://github.com/angular-ui/ui-ace/commit/b7e20c1aa6c4871a62b48fbb36a7a6794809d2b0))
+  * require and advanced options ([6e160cb6](http://github.com/angular-ui/ui-ace/commit/6e160cb6f12b11365e8480509332951ea43d7e5a))
+
+
+<a name="0.1.2"></a>
+### 0.1.2 (2015-01-08)
+
+
+<a name="0.1.1"></a>
+### 0.1.1 (2015-01-08)
+
+
+#### Bug Fixes
+
+* **ace:** resize editor when its width/height changes ([b2024c14](http://github.com/angular-ui/ui-ace/commit/b2024c14dc6336bc232e1bb0b124b6be26f2bbee), closes [#26](http://github.com/angular-ui/ui-ace/issues/26))
+
+
 <a name="v0.1.0"></a>
 ## v0.1.0 (2013-12-28)
 
