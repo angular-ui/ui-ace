@@ -112,6 +112,16 @@ This will copy the UI.Ace files into a `bower_components` folder, along with its
 }"></div>
 ```
 
+To include options applicable to the ACE renderer, you can use the `rendererOptions` key:
+
+```html
+<div ui-ace="{
+  rendererOptions: {
+      maxLinks: Infinity
+  }
+}"></div>
+```
+
 ## Support for concatenated bundles
 
 Trying to use ace with concatenated javascript files usually fails because it changes the physical location of the `workerPath`. If you

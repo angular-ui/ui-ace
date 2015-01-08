@@ -80,6 +80,9 @@ describe('uiAce', function () {
           _ace.setOption = jasmine
             .createSpy('ace.setOption')
             .and.callThrough();
+          _ace.renderer.setOption = jasmine
+            .createSpy('ace.setOption')
+            .and.callThrough();
           return _ace;
         });
     });
@@ -88,15 +91,22 @@ describe('uiAce', function () {
       window.ace.edit = aceEditFunction;
     });
 
-    it('Given advanced option is null if not defined.', function () {
+    it('should not trigger ace#setOption.', function () {
       $compile('<div ui-ace>')(scope);
       expect(_ace.setOption.calls.count()).toEqual(0);
     });
 
-    it('given advanced options are properly defined.', function () {
-      $compile('<div ui-ace=\'{ advanced: { enableSnippets: true  } }\'>')(scope);
+    it('should trigger ace#setOption with "advanced" options.', function () {
+      $compile('<div ui-ace=\'{ advanced: { enableSnippets: true } }\'>')(scope);
       expect(_ace.setOption.calls.count()).toEqual(1);
       expect(_ace.setOption).toHaveBeenCalledWith('enableSnippets', true);
+    });
+
+    it('should trigger renderer#setOption with "rendererOptions" options.', function () {
+      $compile('<div ui-ace=\'{ rendererOptions: { maxLines: 42 } }\'>')(scope);
+      expect(_ace.renderer.setOption.calls.count()).toEqual(2);
+      expect(_ace.renderer.setOption).toHaveBeenCalledWith('showGutter', false);
+      expect(_ace.renderer.setOption).toHaveBeenCalledWith('maxLines', 42);
     });
   });
 
