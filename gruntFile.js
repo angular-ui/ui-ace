@@ -44,15 +44,15 @@ module.exports = function (grunt) {
     watch: {
       src: {
         files: ['src/*'],
-        tasks: ['jshint:src', 'karma:unit:run', 'dist', 'build:gh-pages']
+        tasks: ['karma:unit:run', 'dist', 'build:gh-pages']
       },
       test: {
         files: ['test/*.js'],
-        tasks: ['jshint:test', 'karma:unit:run']
+        tasks: ['karma:unit:run']
       },
       demo: {
         files: ['demo/*', 'publish.js'],
-        tasks: ['jshint', 'build:gh-pages']
+        tasks: ['build:gh-pages']
       },
       livereload: {
         files: ['out/built/gh-pages/**/*'],
