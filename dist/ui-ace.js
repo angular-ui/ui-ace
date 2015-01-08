@@ -248,7 +248,7 @@ angular.module('ui.ace', [])
         };
 
         attrs.$observe('readonly', function (value) {
-          acee.setReadOnly(value === 'true');
+          acee.setReadOnly(!!value || value === '');
         });
 
         // Value Blind
