@@ -167,13 +167,36 @@ describe('uiAce', function () {
         });
       });
       describe('onLoad', function () {
-        it('runs the onLoad callback', function () {
-          scope.aceLoaded = function () {
-          };
-          spyOn(scope, 'aceLoaded');
+        it('should call the local onLoad callback', function () {
+          scope.aceLoaded = jasmine.createSpy('scope.aceLoaded');
           $compile('<div ui-ace="{onLoad: aceLoaded}">')(scope);
           expect(scope.aceLoaded).toHaveBeenCalled();
           expect(scope.aceLoaded).toHaveBeenCalledWith(_ace);
+        });
+
+        it('should call the global onLoad callback', function () {
+          uiConfig.ace.onLoad = jasmine.createSpy('uiConfig.ace.onLoad');
+          $compile('<div ui-ace>')(scope);
+          expect(uiConfig.ace.onLoad).toHaveBeenCalled();
+          expect(uiConfig.ace.onLoad).toHaveBeenCalledWith(_ace);
+        });
+
+        it('should call both local/global onLoad callbacks', function () {
+          scope.aceLoaded = jasmine.createSpy('scope.aceLoaded');
+          uiConfig.ace.onLoad = jasmine.createSpy('uiConfig.ace.onLoad');
+          $compile('<div ui-ace="{onLoad: aceLoaded}">')(scope);
+          expect(uiConfig.ace.onLoad).toHaveBeenCalled();
+          expect(uiConfig.ace.onLoad).toHaveBeenCalledWith(_ace);
+          expect(scope.aceLoaded).toHaveBeenCalled();
+          expect(scope.aceLoaded).toHaveBeenCalledWith(_ace);
+        });
+
+        it('should detect same local/global onLoad callback', function () {
+          uiConfig.ace.onLoad = jasmine.createSpy('uiConfig.ace.onLoad');
+          scope.aceLoaded = uiConfig.ace.onLoad;
+          $compile('<div ui-ace="{onLoad: aceLoaded}">')(scope);
+          expect(uiConfig.ace.onLoad.calls.count()).toBe(1);
+          expect(uiConfig.ace.onLoad).toHaveBeenCalledWith(_ace);
         });
       });
     });
