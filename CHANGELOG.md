@@ -1,3 +1,12 @@
+<a name="0.2.1"></a>
+### 0.2.1 (2015-01-11)
+
+
+#### Bug Fixes
+
+* bad user callback digestion ([df526049](http://github.com/angular-ui/ui-ace/commit/df5260499ee83acd14fd2fd513f5fc19cec51f11))
+
+
 <a name="0.2.0"></a>
 ### 0.2.0 (2015-01-08)
 
