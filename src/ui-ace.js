@@ -196,7 +196,7 @@ angular.module('ui.ace', [])
           var args = Array.prototype.slice.call(arguments, 1);
 
           if (angular.isDefined(callback)) {
-            scope.$apply(function () {
+            scope.$applyAsync(function () {
               if (angular.isFunction(callback)) {
                 callback(args);
               } else {

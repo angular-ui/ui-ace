@@ -308,6 +308,7 @@ describe('uiAce', function () {
           scope.$apply('foo = "bar"');
           $compile('<div ui-ace="{onChange: changing}" ng-model="foo">')(scope);
           _ace.getSession().setValue('baz');
+          scope.$apply();
         }
 
         expect(compileWithObject).toThrow();
