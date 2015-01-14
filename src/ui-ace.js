@@ -79,13 +79,6 @@ angular.module('ui.ace', [])
         ]);
       }
 
-      // onLoad callbacks
-      angular.forEach(opts.callbacks, function (cb) {
-        if (angular.isFunction(cb)) {
-          cb(acee);
-        }
-      });
-
       // Basic options
       if (angular.isString(opts.theme)) {
         acee.setTheme('ace/theme/' + opts.theme);
@@ -122,6 +115,13 @@ angular.module('ui.ace', [])
               acee.renderer.setOption(obj.name, obj.value);
           }
       }
+
+      // onLoad callbacks
+      angular.forEach(opts.callbacks, function (cb) {
+        if (angular.isFunction(cb)) {
+          cb(acee);
+        }
+      });
     };
 
     return {
