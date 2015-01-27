@@ -79,13 +79,6 @@ angular.module('ui.ace', [])
         ]);
       }
 
-      // onLoad callbacks
-      angular.forEach(opts.callbacks, function (cb) {
-        if (angular.isFunction(cb)) {
-          cb(acee);
-        }
-      });
-
       // Basic options
       if (angular.isString(opts.theme)) {
         acee.setTheme('ace/theme/' + opts.theme);
@@ -122,6 +115,13 @@ angular.module('ui.ace', [])
               acee.renderer.setOption(obj.name, obj.value);
           }
       }
+
+      // onLoad callbacks
+      angular.forEach(opts.callbacks, function (cb) {
+        if (angular.isFunction(cb)) {
+          cb(acee);
+        }
+      });
     };
 
     return {
@@ -196,7 +196,7 @@ angular.module('ui.ace', [])
           var args = Array.prototype.slice.call(arguments, 1);
 
           if (angular.isDefined(callback)) {
-            scope.$applyAsync(function () {
+            scope.$evalAsync(function () {
               if (angular.isFunction(callback)) {
                 callback(args);
               } else {

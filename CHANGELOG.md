@@ -1,3 +1,12 @@
+<a name="0.2.2"></a>
+### 0.2.2 (2015-01-27)
+
+
+#### Bug Fixes
+
+* onLoad called in the middle of the options ([5b1a3170](http://github.com/angular-ui/ui-ace/commit/5b1a3170acd482ded223cc21f31fcbf62964f4d4))
+* change to evalAsync
+
 <a name="0.2.1"></a>
 ### 0.2.1 (2015-01-11)
 
