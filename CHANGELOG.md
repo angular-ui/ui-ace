@@ -1,3 +1,11 @@
+<a name="0.2.3"></a>
+### 0.2.3 (2015-01-29)
+
+
+#### Bug Fixes
+
+* another change to evalAsync
+
 <a name="0.2.2"></a>
 ### 0.2.2 (2015-01-27)
 
