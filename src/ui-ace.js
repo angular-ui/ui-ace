@@ -30,6 +30,12 @@ angular.module('ui.ace', [])
      */
     var setOptions = function(acee, session, opts) {
 
+      // sets the ace base path
+      if (angular.isDefined(opts.basePath)) {
+        var config = window.ace.require('ace/config');
+        config.set('basePath', opts.basePath);
+      }
+      
       // sets the ace worker path, if running from concatenated
       // or minified source
       if (angular.isDefined(opts.workerPath)) {
