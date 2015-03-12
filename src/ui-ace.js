@@ -29,18 +29,17 @@ angular.module('ui.ace', [])
      * @param {object} opts Options to be set
      */
     var setOptions = function(acee, session, opts) {
-        
 
       // sets the ace base path
       if (angular.isDefined(opts.basePath)) {
-	    var basePathConfig = window.ace.require('ace/config');
+        var basePathConfig = window.ace.require('ace/config');
         basePathConfig.set('basePath', opts.basePath);
       }
       
       // sets the ace worker path, if running from concatenated
       // or minified source
       if (angular.isDefined(opts.workerPath)) {
-	  var config = window.ace.require('ace/config');
+        var config = window.ace.require('ace/config');
         config.set('workerPath', opts.workerPath);
       }
       // ace requires loading
