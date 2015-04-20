@@ -276,8 +276,7 @@ angular.module('ui.ace', [])
 
         // Listen for option updates
         var updateOptions = function (current, previous) {
-          if (current === previous) return;
-          opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
+          opts = angular.extend({}, options, current);
 
           opts.callbacks = [ opts.onLoad ];
           if (opts.onLoad !== options.onLoad) {
