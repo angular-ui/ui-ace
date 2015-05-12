@@ -62,6 +62,10 @@ angular.module('ui.ace', [])
         acee.setShowPrintMargin(opts.showPrintMargin);
       }
 
+      if (angular.isDefined(opts.useAnnotations)) {
+	    session.setOption('useWorker', opts.useAnnotations);
+	  }
+
       // commands
       if (angular.isDefined(opts.disableSearch) && opts.disableSearch) {
         acee.commands.addCommands([
