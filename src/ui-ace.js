@@ -169,6 +169,13 @@ angular.module('ui.ace', [])
         var onBlurListener;
 
         /**
+         * Reference to a focus listener created by the listener factory.
+         * @function
+         * @see listenerFactory.onFocus
+         */
+        var onFocusListener;
+
+        /**
          * Calls a callback by checking its existing. The argument list
          * is variable and thus this function is relying on the arguments
          * object.
@@ -250,6 +257,20 @@ angular.module('ui.ace', [])
             return function () {
               executeUserCallback(callback, acee);
             };
+          },
+          /**
+           * Creates a focus listener which propagates the editor session
+           * to the callback from the user option onFocus. It might be
+           * exchanged during runtime, if this happens the old listener
+           * will be unbound.
+           *
+           * @param callback callback function defined in the user options
+           * @see onFocusListener
+           */
+          onFocus: function (callback) {
+            return function () {
+              executeUserCallback(callback, acee);
+            };
           }
         };
 
@@ -302,6 +323,13 @@ angular.module('ui.ace', [])
           onBlurListener = listenerFactory.onBlur(opts.onBlur);
           acee.on('blur', onBlurListener);
 
+          // unbind old foucs listener
+          acee.removeListener('focus', onFocusListener);
+
+          // bind new focus listener
+          onFocusListener = listenerFactory.onFocus(opts.onFocus);
+          acee.on('focus', onFocusListener);
+            
           setOptions(acee, session, opts);
         };
 
