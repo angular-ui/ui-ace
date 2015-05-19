@@ -264,7 +264,8 @@ vendor_js=['https://rawgithub.com/ajaxorg/ace-builds/v1.1.1/src-min-noconflict/a
       </tab>
       <tab heading="JavaScript">
         <div plunker-content="javascript">
-<pre class="prettyprint">function AceCtrl($scope) {
+<pre class="prettyprint">app.controller('AceCtrl', AceCtrl);
+function AceCtrl($scope) {
 // The modes
   $scope.modes = [&#39;Scheme&#39;, &#39;XML&#39;, &#39;Javascript&#39;];
   $scope.mode = $scope.modes[0];
