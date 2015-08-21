@@ -62,7 +62,7 @@ angular.module('ui.ace', [])
         acee.setShowPrintMargin(opts.showPrintMargin);
       }
       if (angular.isDefined(opts.setUseWorker)) {
-        session.setUseWorker(opts.setUseWorker)
+        session.setUseWorker(opts.setUseWorker);
       }
 
       // commands
