@@ -275,9 +275,8 @@ angular.module('ui.ace', [])
         }
 
         // Listen for option updates
-        var updateOptions = function (current, previous) {
-          if (current === previous) return;
-          opts = angular.extend({}, options, scope.$eval(attrs.uiAce));
+        var updateOptions = function (newOptions) {
+          opts = angular.extend({}, options, newOptions);
 
           opts.callbacks = [ opts.onLoad ];
           if (opts.onLoad !== options.onLoad) {
@@ -309,7 +308,7 @@ angular.module('ui.ace', [])
 
         // set the options here, even if we try to watch later, if this
         // line is missing things go wrong (and the tests will also fail)
-        updateOptions(options);
+        updateOptions(opts);
 
         elm.on('$destroy', function () {
           acee.session.$stopWorker();
