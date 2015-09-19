@@ -284,6 +284,24 @@ describe('uiAce', function () {
         //
         expect(scope.foo).toBe('baz');
       });
+
+      it('should update the model if text inserted programmatically', function () {
+        $compile('<div ui-ace ng-model="foo">')(scope);
+        scope.$apply('foo = "bar"');
+
+        _ace.insert('baz ');
+
+        expect(scope.foo).toBe('baz bar');
+      });
+
+      it('should update the model if text removed programmatically', function () {
+        $compile('<div ui-ace ng-model="foo">')(scope);
+        scope.$apply('foo = "baz bar"');
+
+        _ace.removeWordRight();
+
+        expect(scope.foo).toBe(' bar');
+      });
     });
 
     describe('when the model is undefined/null', function () {
