@@ -272,6 +272,10 @@ angular.module('ui.ace', [])
           ngModel.$render = function () {
             session.setValue(ngModel.$viewValue);
           };
+
+          acee.on('change', function () {
+            ngModel.$setViewValue(acee.getValue());
+          });
         }
 
         // Listen for option updates
