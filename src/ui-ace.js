@@ -162,6 +162,13 @@ angular.module('ui.ace', [])
         var onChangeListener;
 
         /**
+         * Reference to a change annotation listener created by the listener factory.
+         * @function
+         * @see listenerFactory.onChangeAnnotation
+         */
+        var onChangeAnnotationListener;
+
+        /**
          * Reference to a blur listener created by the listener factory.
          * @function
          * @see listenerFactory.onBlur
@@ -238,6 +245,22 @@ angular.module('ui.ace', [])
             };
           },
           /**
+           * Creates an annotation listener which propagates the editor session
+           * to the callback from the user option onChangeAnnotation. It might be
+           * exchanged during runtime, if this happens the old listener
+           * will be unbound.
+           *
+           * @param callback callback function defined in the user options
+           * @see onChangeAnnotation
+           */
+          onChangeAnnotation: function (callback) {
+            return function () {
+              if (angular.isFunction(callback)) {
+                callback(session.getAnnotations());
+              }
+            };
+          },
+          /**
            * Creates a blur listener which propagates the editor session
            * to the callback from the user option onBlur. It might be
            * exchanged during runtime, if this happens the old listener
@@ -293,6 +316,15 @@ angular.module('ui.ace', [])
           // bind new change listener
           onChangeListener = listenerFactory.onChange(opts.onChange);
           session.on('change', onChangeListener);
+
+          // unbind old annotation listener
+          //session.removeListener('blur', onChangeAnnotationListener);
+          session.removeListener('changeAnnotation', onChangeAnnotationListener);
+
+          // bind new blur listener
+          onChangeAnnotationListener = listenerFactory.onChangeAnnotation(opts.onChangeAnnotation);
+          session.on('changeAnnotation', onChangeAnnotationListener);
+
 
           // unbind old blur listener
           //session.removeListener('blur', onBlurListener);
