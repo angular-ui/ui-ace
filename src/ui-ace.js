@@ -255,7 +255,9 @@ angular.module('ui.ace', [])
            */
           onChangeAnnotation: function (callback) {
             return function () {
-              callback(session.getAnnotations());
+              if (angular.isFunction(callback)) {
+                callback(session.getAnnotations());
+              }
             };
           },
           /**
