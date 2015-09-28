@@ -253,10 +253,10 @@ angular.module('ui.ace', [])
            * @param callback callback function defined in the user options
            * @see onChangeAnnotation
            */
-          onChangeAnnotation: function(callback) {
-            return function() {
+          onChangeAnnotation: function (callback) {
+            return function () {
               callback(session.getAnnotations());
-            }
+            };
           },
           /**
            * Creates a blur listener which propagates the editor session
