@@ -1,4 +1,16 @@
+/* */ 
+'format global';
+'deps angular';
+/*global module, exports*/
+/*jshint globalstrict:true*/
 'use strict';
+
+/* commonjs package manager support (eg componentjs) */
+if (typeof module !== 'undefined' && typeof exports !== 'undefined' && module.exports === exports){
+  module.exports = 'ui.ace';
+}
+
+(function (window, angular, undefined) {
 
 /**
  * Binds a ACE Editor widget
@@ -326,3 +338,4 @@ angular.module('ui.ace', [])
       }
     };
   }]);
+})(window, window.angular);
