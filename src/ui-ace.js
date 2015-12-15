@@ -314,6 +314,9 @@ angular.module('ui.ace', [])
         elm.on('$destroy', function () {
           acee.session.$stopWorker();
           acee.destroy();
+          if (acee.completer && acee.completer.popup) {
+            acee.completer.popup.container.remove();
+          }
         });
 
         scope.$watch(function() {
