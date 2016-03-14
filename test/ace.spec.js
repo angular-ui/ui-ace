@@ -328,6 +328,22 @@ describe('uiAce', function () {
       expect(_ace.session.$stopWorker).toHaveBeenCalled();
       expect(_ace.destroy).toHaveBeenCalled();
     });
+
+    it('should call destroy the completion popup when the element is removed', function () {
+      var element = $compile('<div ui-ace ng-model="foo">')(scope);
+      _ace.completer = {
+          popup: {
+              container: {
+                  remove: jasmine.createSpy('ace.completer.popup.container.remove')
+              }
+          }
+      };
+
+      element.remove();
+      scope.$apply();
+
+      expect(_ace.completer.popup.container.remove).toHaveBeenCalled();
+    });
   });
 
   describe('when the model is an object or an array', function () {
