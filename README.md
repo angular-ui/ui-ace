@@ -58,6 +58,7 @@ Although, _ui-ace_ automatically handles some handy options :
  + _onChange_ : callback when the editor content is changed ().
  + _onBlur_ : callback when the editor is blurred ().
  + _firstLineNumber_ : to set the firstLineNumber (default: 1)
+ + _showPrintMargin_ : to show the printer margin/line width guide (default: true)
 
 ```html
 <div ui-ace="{
