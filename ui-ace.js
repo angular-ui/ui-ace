@@ -86,6 +86,9 @@ angular.module('ui.ace', [])
       if (angular.isString(opts.mode)) {
         session.setMode('ace/mode/' + opts.mode);
       }
+      else if(angular.isObject(opts.mode)) {
+        session.setMode( opts.mode );
+      }
       // Advanced options
       if (angular.isDefined(opts.firstLineNumber)) {
         if (angular.isNumber(opts.firstLineNumber)) {
