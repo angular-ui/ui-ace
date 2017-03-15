@@ -30,11 +30,16 @@ angular.module('ui.ace', [])
      */
     var setOptions = function(acee, session, opts) {
 
-      // sets the ace worker path, if running from concatenated
-      // or minified source
-      if (angular.isDefined(opts.workerPath)) {
+      // sets the ace base and/or worker path, 
+      // if running from concatenated or minified source
+      if (angular.isDefined(opts.workerPath) || angular.isDefined(opts.basePath)) {
         var config = window.ace.require('ace/config');
-        config.set('workerPath', opts.workerPath);
+        if (angular.isDefined(opts.basePath)) {
+          config.set('basePath', opts.basePath);
+        }
+        if (angular.isDefined(opts.workerPath)) {
+          config.set('workerPath', opts.workerPath);
+        }
       }
       // ace requires loading
       if (angular.isDefined(opts.require)) {

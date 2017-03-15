@@ -134,6 +134,14 @@ This should be the folder on disk where `ace.js` resides.
   workerPath: '/path/to/ace/folder'
 }"></div>
 ```
+You could also set the `basePath` option, which will force ace to look for all workers and themes in the folder you specify.
+
+```html
+<div ui-ace="{
+  basePath: '/path/to/ace/workers-and-themes'
+}"></div>
+```
+Please note that ace requests workers and themes dynamically, so bundling them and referencing the bundle using `basePath` doesn't work.
 
 ### Working with ng-model
 
