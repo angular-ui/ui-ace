@@ -124,14 +124,14 @@ To include options applicable to the ACE renderer, you can use the `rendererOpti
 
 ## Support for concatenated bundles
 
-Trying to use ace with concatenated javascript files usually fails because it changes the physical location of the `workerPath`. If you
-need to work with bundled or minified versions of ace, you can specify the original location of the `workerPath` on disk (_not the bundled file_).
+Trying to use ace with concatenated javascript files usually fails because it changes the physical location of the `basePath`. If you
+need to work with bundled or minified versions of ace, you can specify the original location of the `basePath` on disk (_not the bundled file_).
 
 This should be the folder on disk where `ace.js` resides.
 
 ```html
 <div ui-ace="{
-  workerPath: '/path/to/ace/folder'
+  basePath: '/path/to/ace/folder'
 }"></div>
 ```
 
