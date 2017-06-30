@@ -313,6 +313,8 @@ angular.module('ui.ace', [])
 
         elm.on('$destroy', function () {
           acee.session.$stopWorker();
+          if (angular.isObject(acee.completer))
+                acee.completer.detach();
           acee.destroy();
         });
 
